@@ -1,0 +1,394 @@
+<HR>
+<A name="crn2vec2"><H3>crn2vec2</H3> </A>
+<PRE>
+ crn2vec2:  .crn file to  column vectors of index, sample size, and year
+ [x,s,yr]=crn2vec2(pf1)  or [x,s,yr]=crn2vec2;
+ Last revised 2008-4-27
+
+</PRE>
+ Reads a ".crn" file of tree-ring indices in ITRDB format and converts
+ the indices and associated data into vectors that can be used in Matlab.
+ Input file must be formatted as in ITRDB requirements for crn2vec2 to work.
+
+<PRE>
+*** IN
+
+ pf1 (1 x ?)s  path and file name of .crn file
+   (e.g., 'c:\work\mt100.crn');
+   alternatively, can call with no input arguments and be prompted to
+   point to the .crn file
+
+*** OUT
+
+ x (mx x 1)r   tree-ring index, mx years
+ s (mx x 1)r   sample size (number of cores) in each year
+ yr (mx x 1)i  year vector for x and s
+
+*** REFERENCES -- None
+
+*** UW FUNCTIONS CALLED -- None
+
+*** TOOLBOXES NEEDED -- None
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A><HR>
+<A name="rwl2tsm"><H3>rwl2tsm</H3> </A>
+<PRE>
+ rwl2tsm: ring-width list (rwl) file to time series matrix
+ [X,yrX,nms,T]=rwl2tsm(pf1)
+ Last revised 2008-4-30
+
+</PRE>
+<PRE>
+*** IN
+
+ pf1 (1 x ?)s <optional> path and filename of input rwl file (e.g.,
+        'c:\data\'az023.rwl');  if not included, you are prompted to point
+        to the file
+
+*** OUT
+
+ X (mX x nX)r time series matrix, mX years and nX columns
+ yrX (mX x 1)i year vector for X
+ nms {size(X,2) x 1}s names of series in X
+ T (nX x 3)i column, first and last years of valid data in each series of X
+
+*** REFERENCES --- none
+
+*** TOOLBOXES NEEDED -- none
+
+*** UW FUNCTIONS CALLED
+
+ rwl2sov
+ sov2tsm3
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A><HR>
+<A name="acf"><H3>acf</H3> </A>
+<PRE>
+ acf: autocorrelation function and approximate 95% confidence bands
+ [r,SE2,r95]=acf(x,nlags,k);
+ Last revised 2008-4-29
+
+</PRE>
+ Computes autocorrelation function and related information for a time series.
+
+<PRE>
+*** INPUT ARGUMENTS
+
+ x (m x 1) time series, length m
+ nlags (1 x 1)i number of lags to compute acf to
+ k (1 x 2) options;  <This input argument optional; earlier versions did
+       not include it>
+   k(1) -- plotting
+       ==1 No plotting within function; get this also if no k input
+           argument
+       ==2 Function makes stem plot of acf with CI of +-2 times large-lag
+          standard error
+   k(2) -- alternative algorithms (see Notes)
+       ==1 Uses global means, not means computed separately for subsets of
+           observations, for departures.  Computed covariance as sum of products of first k
+           values and last k values from the the mean.  Then standardizes so
+           that lag 0 autocorrelation is 1.0 by dividing the vector g by g(1),
+           where g is vector of sums of cross-products at lags 0,1,2,...
+       ==2 Uses subset means and standard deviations in computations
+
+*** OUTPUT ARGUMENTS
+
+ r (1 x nlags)r   acf at lags 1 to nlags
+ SE2 (1 x nlags)r two times the large-lag standard error of r
+ r95 (1 x 1)threshold sample r required for significance in one-tailed test at
+   0.05 alpha (95% signficance).  Intended for quick check for positive first-order
+   autocorrelation, the most common form of persistence in many natural.
+   If the sample r(1) does not exceed r95, cannot reject H0 that the
+   population r(1) is zero, at 0.05 alpha.
+
+ <Optional>
+
+*** REFERENCES
+
+ Large-lag standard error after Box, G.E.P., and Jenkins, G.M., 1976, Time series
+ analysis: forecasting and control: San Francisco, Holden Day.
+
+ Confidence interval for r(k) from Haan, C.T., 2002, Statistical methods in Hydrology,
+ second edition: Ames, Iowa, Iowa State University Press.
+
+ Computation formulas for sample r from
+ Wilks, D.S., 1995, Statistical methods in the atmospheric sciences: Academic Press, 467 p.
+
+
+*** UW FUNCTIONS CALLED -- none
+
+
+*** TOOLBOXES NEEDED -- none
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A><HR>
+<A name="whit1"><H3>whit1</H3> </A>
+<PRE>
+ whit1:  fit AR model to a time series using modified AIC criterion, returning model information and residuals
+ [e,k1,vrat,arcs] = whit1(y,nhi,k2);
+ Last revised 2008-4-29
+
+</PRE>
+ Fit AR model to a time series using modified AIC criterion, returning model information and residuals
+ You specify the highest order AR model to consider.  Models up to that order are
+ fit, and the modified (small sample) Akaike Information Criterion (AIC) is used to pick the best model.
+
+<PRE>
+*** IN **********************
+
+ y (my x 1)r  time series, vector; NaNs not allowed
+ nhi (1 x 1)i  highest AR order to consider (if k2==1), or the only
+   AR order model to try fitting (if k2=2)
+ k2 (1 x 2)i  options
+   k2(1) for order selections
+       ==1 fit models of order 1 to nhi
+       ==2 fit model of order nhi only
+   k2(2) for over-riding selection of null (order = 0) model
+       ==1 if modified AIC computed from original time series with model order 0 is lower than
+           any of the entertained models, return the null model (see notes)
+       ==2 accept the lowest AIC model even if its AIC is not as low as that of the null model
+
+*** OUT **************************
+
+  e (my x 1)r AR residuals, with mean added back in; or, if null model, the
+		original series y
+  k1 - the order of the AR model deemed best by the AIC, or 0 if null model and k2(2)==1
+  vrat - the ratio of variance of AR residuals to variance of original time series y (see notes)
+  arcs the ar coefs and their two-standard errors in a two-row array; row 1 has
+       the coefficients; row two has 2*standard error of the coefficients;
+       arcs==[] if k2==1 and null model has been selected;
+
+*** REFERENCES
+
+ The loss function and AIC are discussed in Ljung, L. 1995. System identification
+ toolbox; for use with MATLAB, The MathWorks, Inc., p. 3-46.
+
+ Akaike H. (1974) A new look at the statistical model identification. IEEE Trans. Autom. Control AC-19, 716-723.
+ Hurvich C. M. and Tsai C. (1989) Regression and time series model selection in small samples. Biometrika 76, 297-307.
+
+
+*** UW FUNCTIONS CALLED -- none
+*** TOOLBOXES NEEDED -- system identification
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A><HR>
+<A name="rwl2sov"><H3>rwl2sov</H3> </A>
+<PRE>
+ rwl2sov:  read .rwl-file ring widths and store in strung-out-vector format in a .mat file
+ pf2=rwl2sov(pf1,path1,path4);
+ Last revised 2008-4-30
+
+</PRE>
+ This is a way to get ring-width data into Matlab if the data is in the
+ notorious ".rwl" format. "SOV" is short for "strung-out-vector", which means
+ simply that each ring-width series is stacked one after another in a single column vector.<P>
+
+ Also stored is a matrix with years and row indices that allows retrieval of
+ individual ring-width series; and a string matrix of core ids
+ in the same order as the ring-width series are stored. <P>
+
+ SOV storage is expected by several other functions in the
+ tree-ring toolbox. An example is grplot.m, a function
+ for plotting multiple ring-width series on a page.
+
+<PRE>
+*** INPUT
+
+ pf1 (1 x ?)s path\filename of .rwl file
+   example:  'd:\jack\data\az033.rwl'
+ path1 (1 x ?)s path to the .rwl file.  If this arg is passed, means
+   that pf1 is the filename only
+   Example: 'd:\jack\data\'  as path1,  and   'az033.rwl' as pf1
+ path4 (1 x ?)s <optional, only if also have pf1 and path1>: path
+   for the output .mat files and .txt files.  If no path4 as argument,
+   default is to the same directory as the .rwl files are in
+
+ Input arguments are optional.  There can be 0,1, 2, or 3 input arguments:
+  None: user prompted to click on names of input and output files
+  One:  path\filename for the .rwl file
+  Two: first arg is the filename of the .rwl file, and the second is the path
+  Three: path for the output .mat file; this option is convenienent when user
+    wants .mat output files to go to different directories that that
+    of the source .rwl files
+
+*** OUTPUT  *****************************************
+
+ pf2 (1 x ?)s path & filename of output .mat file
+ <optional>
+   X (? x 1)i  column vector of ringwidths stored one core after another
+	  in units of hundredths of mm
+   yrs (? x 3)i start year, end year, and row index into X of start year of each
+	  core's ring-width series in X
+   nms (? x 8)s  identification of each core
+
+
+ If function call with no or just one output argument, a .mat storage file pf2 is made. Otherwise,
+ pf2 is returned as [], and it is assumed the user wants to directly use
+ X, yrs and nms
+ Depending on the number of input arguments, the output .mat
+ file goes to a specified path\filename or the user is prompted to enter
+ the path/filename of the storage file. The .mat stoarge file contains these variables:
+
+   X (? x 1)i  column vector of ringwidths stored one core after another
+	  in units of hundredths of mm
+   yrs (? x 3)i start year, end year, and row index into X of start year of each
+	  core's ring-width series in X
+   nms (? x 8)s  identification of each core
+   cmask (? x 1)i  mask for core; 1==do not mask, 0==mask.  cmask is created as all 1's
+       by rwl2sov.  Subsequent functions may change cmask as cores are deleted from analysis.
+   Fwhen {8 x 4}s   history of fits for the data set.  Casual user need not be concerned with this
+       or cmask.  Fwhen tracks what was the source and target data file, and what and when things were
+       done to the data.
+
+ An ascii file "???_list.txt" is also produced in the working directory.
+ "???" is taken from pf1, and is the part of that filename before the suffix.  This file lists
+ the ids and first and last years' data for each of the ring-width series read.  The numbers in
+ parentheses are the measurements for the first and last years.  This file can be used for checking
+ quickly the contents of an rwl file.
+
+*** REFERENCES --none
+
+*** UW FUNCTIONS CALLED
+
+ intnan.m  -- checks for internal NaNs in a vector
+ trailnan.m -- lops off trailing NaNs from a vector
+
+*** TOOLBOXES NEEDED -- none
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A><HR>
+<A name="sov2tsm3"><H3>sov2tsm3</H3> </A>
+<PRE>
+ sov2tsm: strung-out-vector to time series matrix, with  names cell
+ [X,yrX,nms]=sov2tsm3(v,YRS,nms,jpick,tends);
+ Last revised 2008-4-29
+
+</PRE>
+<PRE>
+*** IN
+
+ v (mv x 1)r strung-out-vector (sov) of one or more time series
+ YRS(nsers x 3)i start year, end year, and starting row index of
+		each series in v, where nsers is the number of series in v
+ nms (nsers x ?)s or {nsers x 1}s names of series in v
+ jpick(? x 1)i or [] index to rows of YRS specifying which series in
+		v to include in the tsm.  For example, jpick=([1 3 4 7])' would pick
+		only those four series.  The series numbers correspond
+		to rows of YRS. See Notes.
+ tends(1 x 2)i, or []  first last year of desired tsm X.
+
+
+*** OUT
+
+ X (mX x nX)r time series matrix, mX years and nX columns
+ yrX (mX x 1)i year vector for X
+ nms {size(X,2) x 1}s names of series in X
+
+*** REFERENCES --- none
+
+*** TOOLBOXES NEEDED -- none
+
+*** UW FUNCTIONS CALLED -- none
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A><HR>
+<A name="akaike"><H3>akaike</H3> </A>
+<PRE>
+ akaike: Akaike information criterion for order of best ARMA model
+ c=akaike(V,N,m);
+ Last revised  2-17-04
+
+</PRE>
+ Akaike information criterion for order of best ARMA model
+
+<PRE>
+*** INPUT ARGUMENTS
+
+ V (1 x 1)r loss function, or variance of model residuals
+ N (1 x 1)i number of observations
+ m (1 x 1)i number of explanatory variables, or sum of AR and MA orders
+
+*** OUTPUT ARGUMENTS
+
+ c (1 x 2)r   Akaike information criterion, with and without correction for small sample bias (see
+       notes);  c(1) == with correction; c(2)= without correction
+
+*** REFERENCES
+
+ Akaike H. (1974) A new look at the statistical model identification. IEEE Trans. Autom. Control AC-19, 716-723.
+ Hurvich C. M. and Tsai C. (1989) Regression and time series model selection in small samples. Biometrika 76, 297-307.
+
+
+*** UW FUNCTIONS CALLED -- none
+
+
+*** TOOLBOXES NEEDED
+
+ System identification
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A><HR>
+<A name="trailnan"><H3>trailnan</H3> </A>
+<PRE>
+ trailnan: remove any trailing NaN's from a vector
+ x=trailnan(x);
+ Last revised: Meko 2008-4-29
+
+</PRE>
+ Utility function used by rwlinp.m and other functions. Most users
+ will not need to call trailnan in their own code
+
+<PRE>
+*** INPUT
+
+ x (1 x ?)r or (? x 1)r vector, usually a time series
+
+*** OUTPUT
+
+ x (? x 1)r  the same vector, but with any trailing NaN's removed
+
+*** REFERENCES -- none
+*** UW FUNCTIONS CALLED -- none
+*** TOOLBOXES NEEDED -- none
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A><HR>
+<A name="intnan"><H3>intnan</H3> </A>
+<PRE>
+ intnan: check for internal NaN in a vector
+ m=intnan(x)
+ Last revised 2008-4-29
+
+</PRE>
+ Utility function for checking whether a vector has an internal, or imbedded, NaN
+
+<PRE>
+*** INPUT
+
+ x(? x 1)r or ((1 x ?)r  -- a time series
+
+*** OUTPUT
+
+ m(1 x 1)L   1 if x has imbedded NaN, 0 otherwise
+
+*** REFERENCES -- none
+
+
+*** UW FUNCTIONS CALLED -- none
+
+*** TOOLBOXES NEEDED -- none
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>

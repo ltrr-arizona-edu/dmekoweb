@@ -1,0 +1,1436 @@
+<!DOCTYPE HTML PUBLIC  "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>meko-mfiles1</title>
+	<Link rel="stylesheet" type="text/css"
+href="master.css">
+</head>
+<body>
+<HR>
+<HR>
+<A name="crn2vec2"><H3>crn2vec2</H3> </A>
+<PRE>
+ crn2vec2:  .crn file to  column vectors of index, sample size, and year
+ [x,s,yr]=crn2vec2(pf1)  or [x,s,yr]=crn2vec2;
+ Last revised 2009-8-20
+
+</PRE>
+ Reads a ".crn" file of tree-ring indices in ITRDB format and converts
+ the indices and associated data into vectors that can be used in Matlab.
+ Input file must be formatted as in ITRDB requirements for crn2vec2 to work.
+
+<PRE>
+*** IN
+
+ pf1 (1 x ?)s  path and file name of .crn file
+   (e.g., 'c:\work\mt100.crn');
+   alternatively, can call with no input arguments and be prompted to
+   point to the .crn file
+
+*** OUT
+
+ x (mx x 1)r   tree-ring index, mx years
+ s (mx x 1)r   sample size (number of cores) in each year
+ yr (mx x 1)i  year vector for x and s
+
+*** REFERENCES -- None
+
+*** UW FUNCTIONS CALLED -- None
+
+*** TOOLBOXES NEEDED -- None
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="rwl2tsm"><H3>rwl2tsm</H3> </A>
+<PRE>
+ rwl2tsm: ring-width list (rwl) file to time series matrix
+ [X,yrX,nms,T]=rwl2tsm(pf1)
+ Last revised 2009-9-4
+
+</PRE>
+ Ring-width list (rwl) file to time series matrix.
+ Reads an rwl file and puts all its ring-width series into a
+ time series matrix X with a corresponding year vector yrX.  The columns
+ of X correspond to the individual width series in the order they were
+ stored in their rwl file.  The row-cell of string names, nms, has the
+ core ids of the series in X, in the same order as the columns of X. The
+ time series matrix X is filled out with NaNs where data for individual
+ series is missing. <P>
+
+
+<PRE>
+*** IN
+
+ pf1 (1 x ?)s <optional> path and filename of input rwl file(see notes) (e.g.,
+        'c:\data\'az023.rwl');  if not included, you are prompted to point
+        to the file
+
+*** OUT
+
+ X (mX x nX)r time series matrix, mX years and nX columns
+ yrX (mX x 1)i year vector for X
+ nms {size(X,2) x 1}s col-cell of names of series in X
+ T (nX x 3)i column, first and last years of valid data in each series of X
+
+*** REFERENCES --- none
+
+*** TOOLBOXES NEEDED -- none
+
+*** UW FUNCTIONS CALLED
+
+ rwlinp
+ sov2tsm3
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="grplot"><H3>grplot</H3> </A>
+<PRE>
+ grplot: stacked time series plots of ring-width series from rwl file
+ grplot;
+ Last revised 2008-5-2
+
+</PRE>
+ Stacked time series plots of ring-width series from rwl file. Up to 8 series
+ plotted per figure windowm, or printed page. Intended to help in deciding on curve-fits
+ for detrending in programs such as ARSTAN.  Can process single rwl file (interactive
+ mode), or multiple rlw files(batch mode). Series can be plotted in order as encountered
+ in the rwl file, or re-ordered by age. Series for each page can also be specified if
+ user first stores a pointer variable in a .mat file beforehand.
+
+<PRE>
+*** IN
+
+ No input arguments
+
+ User prompted for various options, and to point to files for input and
+ output
+
+*** OUT
+
+ No output args.
+
+ Plots of time series appear in one or more figure windows.
+
+ If your input ring-width data is from an .rwl file(s), an ascii .txt file with name
+ xxx_list.txt appears in the working directory.  "xxx" is the part of the
+ rwl filename before the period.  Thus, if "az024.rwl" is your input,
+ "az024_list.txt" is produced.  This .txt file is for surveying file
+ contents and lists each core id and first and last years' measurments
+
+ Other file output is optional, and consists of one or more postscript (.ps) files, one for
+ each input .mat ring-width file.  The user can specify the filename in interactive
+ mode.  In batch mode, the .ps suffix is assigned to the same prefix as the input
+ .mat file containing the ring-width file.
+
+ In "single" mode you can view the figure windows as the program runs and afterwards.
+ In "batch" mode, figure windows are not saved, but are overwritten from on
+ ring-width file to ring-width file.  But in batch mode, have the plots stored in
+ .ps files for later plotting.
+
+*** REFERENCES -- none
+
+*** UW FUNCTIONS CALLED
+
+ eightplt - utility function that plots up to 8 sets of axes on page
+ rwlinp - read rwl file; store data as indexed vector (strung-out-vector) and metadata
+ trailnan --- misc utility
+
+*** TOOLBOXES NEEDED -- none
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="rwlinp"><H3>rwlinp</H3> </A>
+<PRE>
+ rwlinp:  read rwl-file data and store in  a .mat file
+  [pf2,X,yrs,nms]=rwlinp(pf1,path1,path2);
+ Last revised 2009-9-28
+
+</PRE>
+ Read rwl-file data and store in  a .mat file.
+ Utility function to read an rwo file and store the data in an accessible
+ form for MATLAB functions.  Data stored as "index-vector", which is each
+ series one after another in a column vector.  <P>
+
+
+<PRE>
+*** INPUT (optionally 0-3 args)
+
+ pf1 (1 x ?)s <optional> combined path and filename of .rwl file
+   example:  'd:\jack\data\az033.rwl'
+ path1 (1 x ?)s <optional> path to the .rwl file.  If this arg is passed, means
+   that pf1 is the filename only
+   Example: 'd:\jack\data\'  as path1,  and   'az033.rwl' as pf1
+ path2 (1 x ?)s <optional>, only if also have pf1 and path1>: path
+   for the output .mat files and .tmp files.  If no path2 as argument,
+   default is to the same directory as the .rwl files are in
+
+ Input arguments are optional.  There can be 0,1, 2, or 3 input arguments:
+  None: user prompted to clck on names of input and output files
+  One:  combined path & filename for the .rwl file
+  Two: first arg is the filename of the .rwl file, and the second is the path
+  Three: path for the output .mat file; this option is convenienent when user
+    wants .mat output files to go to different directories that that
+    of the source .rwl files
+
+
+*** OUTPUT
+
+ pf2 (1 x ?)s path & filename of output .mat file
+ X (? x 1)i  column vector of ringwidths stored one core after another
+	  in units of hundredths of mm
+ yrs (? x 3)i start year, end year, and row index of start year of each
+	  core's ring-width series in X
+ nms {?x1}s  ids of each core
+
+ Depending on the number of input arguments, the output .mat
+ file goes to a specified filename or the user is prompted to enter
+ it.  The .mat file contains X, yrs and nms, as well as:
+
+   cmask (? x 1)i  mask for core; 1==do not mask, 0==mask.  cmask is created as all 1's
+       by rwlinp.  Subsequent functions may change cmask as cores are deleted from analysis.
+   Fwhen {8 x 4}s   history of fits for the data set.  Casual user need not be concerned with this
+       or cmask.  Fwhen tracks what was the source and target data file, and what and when things were
+       done to the data.
+
+ A .tmp ascii file is also produced listing the core id, and first and last years'
+ data for each core.  This file intended for checking that rwlinp.m
+ indeed stores the ring widths properly
+
+
+*** REFERENCES --none
+
+*** UW FUNCTIONS CALLED
+
+ intnan.m  -- checks for internal NaNs in a vector
+ trailnan.m -- lops off trailing NaNs from a vector
+
+*** TOOLBOXES NEEDED -- none
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="sov2tsm3"><H3>sov2tsm3</H3> </A>
+<PRE>
+ sov2tsm: strung-out-vector to time series matrix, with  names cell
+ [X,yrX,nms]=sov2tsm3(v,YRS,nms,jpick,tends);
+ Last revised 2008-4-29
+
+</PRE>
+ Strung-out-vector (SOV) to time series matrix, with  names cell.
+ Low-level function to convert ring-width data previously read from an rwl
+ file into MATLAB by rwlinp in to a time series matrix. This function
+ called by rwl2tsm.
+
+<PRE>
+*** IN
+
+ v (mv x 1)r strung-out-vector (sov) of one or more time series
+ YRS(nsers x 3)i start year, end year, and starting row index of
+		each series in v, where nsers is the number of series in v
+ nms (nsers x ?)s or {nsers x 1}s names of series in v
+ jpick(? x 1)i or [] index to rows of YRS specifying which series in
+		v to include in the tsm.  For example, jpick=([1 3 4 7])' would pick
+		only those four series.  The series numbers correspond
+		to rows of YRS. See Notes.
+ tends(1 x 2)i, or []  first last year of desired tsm X.
+
+
+*** OUT
+
+ X (mX x nX)r time series matrix, mX years and nX columns
+ yrX (mX x 1)i year vector for X
+ nms {size(X,2) x 1}s names of series in X
+
+*** REFERENCES --- none
+
+*** TOOLBOXES NEEDED -- none
+
+*** UW FUNCTIONS CALLED -- none
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="trailnan"><H3>trailnan</H3> </A>
+<PRE>
+ trailnan: remove any trailing NaN's from a vector
+ x=trailnan(x);
+ Last revised: 2009-10-05
+
+</PRE>
+ Utility function used by rwlinp.m and other functions. Most users
+ will not need to call trailnan in their own code
+
+<PRE>
+*** INPUT
+
+ x (1 x ?)r or (? x 1)r vector, usually a time series
+
+*** OUTPUT
+
+ x (? x 1)r  the same vector, but with any trailing NaN's removed
+
+*** REFERENCES -- none
+*** UW FUNCTIONS CALLED -- none
+*** TOOLBOXES NEEDED -- none
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="eightplt"><H3>eightplt</H3> </A>
+<PRE>
+ eightplt: Plot up to eight plotes of ring width per page; utility called by grplot.m
+ eightplt(datin);
+ Last revised 2009-9-28
+
+</PRE>
+ Plot up to eight plotes of ring width per page; utility called by
+ grplot.m. You will not typically call eightplt yourself.
+
+
+<PRE>
+*** IN
+ datin{} -- contents described later
+
+***  OUT
+ No output args
+
+
+*** REFERENCES -- none
+
+*** UW FUNCTIONS CALLED -- none
+
+*** TOOLBOXES NEEDED -- none
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="acf"><H3>acf</H3> </A>
+<PRE>
+ acf: autocorrelation function and approximate 95% confidence bands
+ [r,SE2,r95]=acf(x,nlags,k);
+ Last revised 2008-4-29
+
+</PRE>
+ Autocorrelation function and approximate 95% confidence bands. Options available
+ for plotting and for alternative algorithms of calculation.
+
+<PRE>
+*** INPUT ARGUMENTS
+
+ x (m x 1) time series, length m
+ nlags (1 x 1)i number of lags to compute acf to
+ k (1 x 2) options;  <This input argument optional; earlier versions did
+       not include it>
+   k(1) -- plotting
+       ==1 No plotting within function; get this also if no k input
+           argument
+       ==2 Function makes stem plot of acf with CI of +-2 times large-lag
+          standard error
+   k(2) -- alternative algorithms (see Notes)
+       ==1 Uses global means, not means computed separately for subsets of
+           observations, for departures.  Computed covariance as sum of products of first k
+           values and last k values from the the mean.  Then standardizes so
+           that lag 0 autocorrelation is 1.0 by dividing the vector g by g(1),
+           where g is vector of sums of cross-products at lags 0,1,2,...
+       ==2 Uses subset means and standard deviations in computations
+
+*** OUTPUT ARGUMENTS
+
+ r (1 x nlags)r   acf at lags 1 to nlags
+ SE2 (1 x nlags)r two times the large-lag standard error of r
+ r95 (1 x 1)threshold sample r required for significance in one-tailed test at
+   0.05 alpha (95% signficance).  Intended for quick check for positive first-order
+   autocorrelation, the most common form of persistence in many natural.
+   If the sample r(1) does not exceed r95, cannot reject H0 that the
+   population r(1) is zero, at 0.05 alpha.
+
+ <Optional>
+
+*** REFERENCES
+
+ Large-lag standard error after Box, G.E.P., and Jenkins, G.M., 1976, Time series
+ analysis: forecasting and control: San Francisco, Holden Day.
+
+ Confidence interval for r(k) from Haan, C.T., 2002, Statistical methods in Hydrology,
+ second edition: Ames, Iowa, Iowa State University Press.
+
+ Computation formulas for sample r from
+ Wilks, D.S., 1995, Statistical methods in the atmospheric sciences: Academic Press, 467 p.
+
+
+*** UW FUNCTIONS CALLED -- none
+
+
+*** TOOLBOXES NEEDED -- none
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="whit1"><H3>whit1</H3> </A>
+<PRE>
+ whit1:  fit AR model to a time series using modified AIC criterion, returning model information and residuals
+ [e,k1,vrat,arcs] = whit1(y,nhi,k2);
+ Last revised 2008-4-29
+
+</PRE>
+ Fit AR model to a time series using modified AIC criterion, returning model information and residuals
+ You specify the highest order AR model to consider.  Models up to that order are
+ fit, and the modified (small sample) Akaike Information Criterion (AIC) is used to pick the best model.
+
+<PRE>
+*** IN **********************
+
+ y (my x 1)r  time series, vector; NaNs not allowed
+ nhi (1 x 1)i  highest AR order to consider (if k2==1), or the only
+   AR order model to try fitting (if k2=2)
+ k2 (1 x 2)i  options
+   k2(1) for order selections
+       ==1 fit models of order 1 to nhi
+       ==2 fit model of order nhi only
+   k2(2) for over-riding selection of null (order = 0) model
+       ==1 if modified AIC computed from original time series with model order 0 is lower than
+           any of the entertained models, return the null model (see notes)
+       ==2 accept the lowest AIC model even if its AIC is not as low as that of the null model
+
+*** OUT **************************
+
+  e (my x 1)r AR residuals, with mean added back in; or, if null model, the
+		original series y
+  k1 - the order of the AR model deemed best by the AIC, or 0 if null model and k2(2)==1
+  vrat - the ratio of variance of AR residuals to variance of original time series y (see notes)
+  arcs the ar coefs and their two-standard errors in a two-row array; row 1 has
+       the coefficients; row two has 2*standard error of the coefficients;
+       arcs==[] if k2==1 and null model has been selected;
+
+*** REFERENCES
+
+ The loss function and AIC are discussed in Ljung, L. 1995. System identification
+ toolbox; for use with MATLAB, The MathWorks, Inc., p. 3-46.
+
+ Akaike H. (1974) A new look at the statistical model identification. IEEE Trans. Autom. Control AC-19, 716-723.
+ Hurvich C. M. and Tsai C. (1989) Regression and time series model selection in small samples. Biometrika 76, 297-307.
+
+
+*** UW FUNCTIONS CALLED
+
+ akaike
+
+
+*** TOOLBOXES NEEDED -- system identification
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="akaike"><H3>akaike</H3> </A>
+<PRE>
+ akaike: Akaike information criterion for order of best ARMA model
+ c=akaike(V,N,m);
+ Last revised  2004-2-17
+
+</PRE>
+ Akaike information criterion for order of best ARMA model
+
+<PRE>
+*** INPUT ARGUMENTS
+
+ V (1 x 1)r loss function, or variance of model residuals
+ N (1 x 1)i number of observations
+ m (1 x 1)i number of explanatory variables, or sum of AR and MA orders
+
+*** OUTPUT ARGUMENTS
+
+ c (1 x 2)r   Akaike information criterion, with and without correction for small sample bias (see
+       notes);  c(1) == with correction; c(2)= without correction
+
+*** REFERENCES
+
+ Akaike H. (1974) A new look at the statistical model identification. IEEE Trans. Autom. Control AC-19, 716-723.
+ Hurvich C. M. and Tsai C. (1989) Regression and time series model selection in small samples. Biometrika 76, 297-307.
+
+
+*** UW FUNCTIONS CALLED -- none
+
+
+*** TOOLBOXES NEEDED
+
+ System identification
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="intnan"><H3>intnan</H3> </A>
+<PRE>
+ intnan: check for internal NaN in a vector
+ m=intnan(x)
+ Last revised 2008-4-29
+
+</PRE>
+ Utility function for checking whether a vector has an internal, or imbedded, NaN
+
+<PRE>
+*** INPUT
+
+ x(? x 1)r or (1 x ?)r  -- a time series
+
+*** OUTPUT
+
+ m(1 x 1)L   1 if x has imbedded NaN, 0 otherwise
+
+*** REFERENCES -- none
+
+
+*** UW FUNCTIONS CALLED -- none
+
+*** TOOLBOXES NEEDED -- none
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="rwchng"><H3>rwchng</H3> </A>
+<PRE>
+ rwchng: scaled values or scaled first-difference of a time series
+ rwchng(x,k);
+ Last revised 2003-09-10
+
+</PRE>
+ Scaled values or scaled first-difference of a time series.
+ Written as utility function for skelcrn.
+ The scaled first-difference ring-width or index time series is the
+ change in the series from the previous year expressed as a decimal fraction
+ of the local level of the series.  The local level is the values of the series
+ smoothed by a 9-weight Gaussian filter.<P>
+
+
+<PRE>
+*** INPUT ARGS
+
+ x (mx x 1) input time series, a ring-width series or index series
+ k (1 x 1)i  option for first differencing of time series (see notes)
+   ==1 no first differencing ("local" mode in skelcrn)
+   ==2 first differencing
+
+*** OUTPUT ARGS
+
+ y (my x 1)  scaled first difference of departures
+     my=mx-1
+
+*** REFERENCES -- none
+
+*** UW FUNCTIONS CALLED -- none
+
+*** TOOLBOXES NEEDED
+ signal processing
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="rwread3"><H3>rwread3</H3> </A>
+<PRE>
+ rwread3: reads a single .rw file
+ [X,guy,day,pf1]=rwread3(path1,file1);
+ Last revised 1999-2-15
+
+</PRE>
+ Reads a single .rw file
+ A low-level function called by skelcrn and other
+ UW functions.  rwread3.m reads a file of data in ".rw" format,
+ and stores the result in a matrix with the year as column 1 and
+ ring width in column 2
+
+<PRE>
+*** INPUT ***********************
+
+ path1 (1 x ?)ch path to .rw file
+ file1 (1 x ?)ch filename of .rw file
+
+
+*** OUTPUT ************************
+
+ X (mX x 2)r year in col 1, ring width in col 2
+ guy (1 x ?)ch initials of measurer
+ day (1 x ?)ch day measured
+ pf1 (1 x ?)ch path\filename of the .rw file
+
+*** REFERENCES -- none
+*** UW FUNCTIONS CALLED --	 none
+*** TOOLBOXES NEEDED -- none
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="skelcrn"><H3>skelcrn</H3> </A>
+<PRE>
+ skelcrn:  skeleton plot from .crn file or .rw file
+ skelcrn;
+ Last revised 2009-9-30
+
+</PRE>
+ Draws a skeleton plot from chronology indices in a .crn "ITRDB-format"
+ file; a measured ring-width series in a .rw file; or a two-column time series
+ matrix with the year in column 1.
+ The plot is scaled in the x-direction to 100 yr per 20 cm to match
+ with manually drawn plots.  The 10% of largest values (index or ring width)
+ indices in each century are marked by small squares on the skeleton plot.
+ For .crn input, a plot of sample size (number of cores, usually) against
+ time is also produced.<P>
+
+ Optionally a ring can be compared to just the flanking rings (adjacent), or
+ to all rings within the local region (local).  In "adjacent" mode, ring widths
+ are first-differenced as an intermediate step to emphasize change from
+ previous year.  In "local" mode, no first-differencing is done. With the "local" approach,
+ the comparison is centered (comparing with rings before and after). With the
+ adjacent, the comparison can be either centered or backwards (comparing the ring with just the
+ preceding ring).
+
+ A user-prompted scaling factor allows for stretching or shrinking the x axis
+ so that the output of your particular printer exactly matches the scale of manual
+ skeleton plots.
+
+<PRE>
+*** IN
+
+ No input arguments.
+ User is prompted for three things:
+ 1) type of input (.crn file or .rw file)
+ 2) local or adjacent mode
+ 2) centered or backwards approach to building the plot
+ 3) scaling factor (see notes)
+
+*** OUT
+
+ No output arguments
+
+ Plots are shown in figure windows on the screen.  DO NOT WORRY if when you click on
+ a figure window you do not see the entire plots.  The printouts will stil be OK.
+ To get a printout, steps depend on your version of matlab.  With MATLAB
+ Version 7.5.0.342 (R2007b)follow these steps:
+         '1  Click on a desired figure window to make that window current',...
+         '2  Click File/PrintPreview from the Figure-Window menu',...
+         '3  Click "Center" option -- rectangle at left center of menu...
+         '4  Press "Print" from the Print Preview window',...
+         '6  Press "OK" from the Print Window'};
+
+ Skelcrn is not likely to work with earlier versions of Matlab, as this version of skelcrn was adapted
+ to use some new calling conventions.
+
+*** REFERENCES
+
+ Stokes, M.A., and Smiley, T.L., 1996, An Introduction to Tree-ring Dating:
+ The University of Arizona Press, Tucson, p. 73 pp.
+
+*** UW FUNCTIONS CALLED
+
+ filter1.m -- apply filter to time series
+ rwchng.m  -- transforms ring width
+ rwread3.m -- reads a .rw file
+ crn2vec2 -- reads a .crn file and converts data to column vector
+ wtsgaus -- gets Gaussian filter weights
+
+
+*** TOOLBOXES
+
+ statistics
+ signal processing
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="wtsgaus"><H3>wtsgaus</H3> </A>
+<PRE>
+ wtsgaus: weights for gaussian filter with specified frequency response
+ b=wtsgaus(p,N);
+ Last revised 2003-3-14
+
+</PRE>
+ Weights for gaussian filter with specified frequency response
+ Specify te wavelength for the 0.50 respons, and the length of series, get
+ the coefficients, or weights
+
+<PRE>
+*** INPUT
+
+ p (1 x 1)i  period (years) at which filter is to have amp frequency response of 0.5
+ N (1 x 1)i  length of the time series (number of observations)
+
+*** OUTPUT
+
+ b (1 x n)r  computed weights
+
+
+*** REFERENCES
+
+ WMO 1966, p. 47
+
+*** UW FUNCTIONS CALLED -- NONE
+*** TOOLBOXES NEEDED -- stats
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="filter1"><H3>filter1</H3> </A>
+<PRE>
+ filter1:  filter a time series, keeping correct phase and adjusting for end effects
+ [y,ty]=filter1(x,tx,b,k);
+ Last revised 2003-10-31
+
+</PRE>
+ Filter a time series, keeping correct phase and adjusting for end effects
+
+<PRE>
+*** INPUT
+
+ x (mx x 1) time series, no NaN allowed
+ tx (mx x 1) time variable
+ b (1 x nb) filter weights -- must be odd number of weights
+ k (1 x 1)  option for end effects
+   1 - truncate (i.e., use only the observed data)
+   2 - reflect about endpoints -- coded, but not rigorously checked out yet
+   3 - extend with mean of x
+   4 - extend with median of x
+
+
+*** OUTPUT  *************************
+
+ y (my x 1) filtered version of x.  my is fewer than mx if k=1
+ ty (my x 1) time variable corresponding to y
+
+*** REFERENCES
+
+ Mitchell, J.M., Jr., Dzerdzeevskii, B., Flohn, H., Hofmeyr,
+ W.L., Lamb, H.H., Rao, K.N., and Wallen, C.C., 1966, Climatic change,
+ Technical Note 79: Geneva, World Meteorological Organization.
+
+*** UW FUNCTIONS NEEDED -- NONE
+
+*** TOOLBOXES NEEDED
+
+ signal processing
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="climgram"><H3>climgram</H3> </A>
+<PRE>
+ climgram: box-plot graphs showing monthly distributions of precipitation and temperature
+ [mpcp,npcp,mtmp,ntmp]=climgram(P,T,txtin,windno,koptcolor);
+ Last revised 2009-10-04
+
+</PRE>
+ Box-plot graphs showing monthly distributions of precipitation and temperature.
+ A figure with two panels, each having 12 box plots, is drawn.  The top plot
+ shows the distribution of monthly precipitation; the bottom plot shows the
+ distribution of monthly temperature.  The plots convey the same information
+ as the conventional "climatogram", or "climograph", but dislay the variability as
+ well as the mean level of the monthly climate variables.
+
+<PRE>
+*** IN
+
+ P (? x 13)r  monthly precipitation matrix, year in col 1
+ T (? x 13)r  monthly temperature matrix, year in col 1
+ txtin{} -- Labeling for plots
+   {1} (1 x ?)s title for plot (will go above top plot). Say,
+       'Climatogram for Rapid City'
+   {2} (1 x ?)s y axis label for pcp  Example
+      'Precipitation (mm)'
+   {3} (1 x ?)s y axis label for tmp
+ windno: window number for plot
+ koptcolor (1x1)i  color option
+   ==1 color
+   ==2 B/W
+
+*** OUT
+
+ mpcp (1 x 12)r  means for pcp
+ npcp (1 x 12)n  number of years in sample
+ mtmp (1 x 12)r  means for tmp
+ ntmp (1 x 12)n  number of years in sample
+
+
+*** REFERENCES -- NONE
+
+*** UW FUNCTIONS CALLED --NONE
+
+*** TOOLBOXES NEEDED
+ stats
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="figsize"><H3>figsize</H3> </A>
+<PRE>
+ figsize: figure-window pixel positions from specified fractional screen-width and screen-height
+ [cL,cB,cW,cH]=figsize(fwidth,fheigth);
+ Last Revised 2009-10-04
+
+</PRE>
+ Figure-window pixel positions from specified fractional screen-width and screen-height.
+ You want to set position property of figure window such that figure window
+ covers a specified fraction of screen regardless of how many pixels
+ are in the x and y directions on your computer.
+
+<PRE>
+*** INPUT
+
+ fwidth (1 x 1)r   desired figure width as decimal fraction of screen width
+ fheight (1 x 1)r  desired figure height as decimal fraction of screen height
+
+*** OUTPUT
+
+ cL (1 x 1)i  left position as pixel
+ cW (1 x 1)i  width in pixels
+ cB (1 x 1)i  bottom position as pixel
+ cH (1 x 1)i  height in pixelsesult -- structure of results
+
+*** REFERENCES --- none
+
+
+*** UW FUNCTIONS CALLED -- none
+
+*** TOOLBOXES NEEDED -- none
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="textcorn"><H3>textcorn</H3> </A>
+<PRE>
+ textcorn: Add annotation text to any corner of a figure
+ textcorn(txt,pos,xoffset,yoffset,fsz);
+ Last Revised 2009-10-05
+
+</PRE>
+ Add annotation text to any corner of a figure.
+ Control over which corner, how far from axes, and font size. One common
+ use is to label subplots as "A", "B", etc.
+
+
+<PRE>
+*** INPUT
+
+ txt (1 x ?)s or {}s =  text of label
+ pos (1 x 2)s position (one of these: "UL","UR","LL" or "LR")
+ xoffset (1 x 1)r how far text is from left or right axis, as percentage
+   of XLim axis property
+ yoffset (1 x 1)r how far text is from bottom or top axis, as percentage
+   of YLim axis property
+ fsz (1 x 1)i font size
+
+*** OUTPUT
+
+ No output, just puts text on the figure
+
+
+*** REFERENCES --- none
+
+*** UW FUNCTIONS CALLED -- none
+
+*** TOOLBOXES NEEDED -- none
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="nonan1"><H3>nonan1</H3> </A>
+<PRE>
+ nonan1: longest continuous block of a time series matrix without missing data
+ [yrgo2,yrsp2]=nonan1(X,yr);
+ Last revised: 2009-10-05
+
+</PRE>
+ Longest continuous block of a time series matrix without missing data.
+ Finds the longest continuous block of rows of a matrix for which none of
+ the data is NaN.  Useful in selecting period for calibration of
+ tree-ring and climate series.
+
+<PRE>
+*** IN
+
+ X (mX x nX)r  time series matrix, mX observations and nX variables
+ yr (mX x 1)i  year vector corresponding to X
+
+
+*** OUT
+
+ yrgo2 (1 x 1)i start year of period without any NaN
+ yrsp2 (1 x 1)i  end year ...
+
+
+*** REFERENCES -- none
+*** UW FUNCTIONS CALLED -- none
+*** TOOLBOXES NEEDED  -- none
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+<HR>
+<A name="trimnan"><H3>trimnan</H3> </A>
+<PRE>
+ trimnan: trim any leading and trailing NaNs from a vector time series
+ [x,yrx]=trimnan(x,yrx);
+ Last revised: 2009-10-05
+
+</PRE>
+ Trim any leading and trailing NaNs from a vector time series.
+
+<PRE>
+*** INPUT
+
+ x: time series, a col-vector or row-vector
+ yrx:  year vector, same size as x
+
+
+*** OUTPUT
+
+ x: trimmed vector of data
+ yrx: trimmed year vector for ouput x
+
+
+*** REFERENCES -- none
+
+*** UW FUNCTIONS CALLED
+
+ trailnan
+
+
+*** TOOLBOXES NEEDED -- none
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+
+<HR>
+<A name="mafilt1"><H3>mafilt1</H3> </A>
+<PRE>
+ mafilt1: evenly-weighted moving average of an annual time series
+ [y,yry]=mafilt1(x,yr,m,kopt);
+ Last revised 2009-10-05
+
+</PRE>
+ Evenly-weighted moving average of an annual time series.
+ Option for assigning smoothed value to ending year or middle year of the
+ moving window
+
+<PRE>
+*** INPUT ARGS
+
+ x (mx x 1)r time series
+ yr (mx x 1)i year vector for x
+ m (1 x 1)i length of moving average (e.g.,number of weights)
+ kopt (1 x 1)i  options
+   kopt(1) which year of the m-year period to assign smoothed value
+		==1 central year  ==2  ending year
+
+
+*** OUTPUT ARGS
+
+ y   (?x1) smoothed time series
+ yry (? x1) years for y
+
+
+*** REFERENCES -- NONE
+*** UW FUNCTIONS CALLED -- NONE
+*** TOOLBOXES USED -- NONE
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+
+<HR>
+<A name="c132tss"><H3>c132tss</H3> </A>
+<PRE>
+ c132tss: Thirteen-column monthly climate matrix to time-series structure
+ function Result=c132tss(D);
+ Last Revised 2009-10-14
+
+</PRE>
+ Thirteen-column monthly climate matrix to time-series structure.
+ Reorganized the 13 cols (year and jan-to-dec data) into 3 columns --
+ year, month, data. Reorganized matrix is stored as a field in structure
+ Result.  The other fields, designed to hold metadata (e.g., longitude,
+ latitude) are not dealt with by c132tss, whose sole function is
+ reoroganization of the data matrix.
+
+<PRE>
+*** INPUT
+
+ D (mD x nD)r  13-col climate monthly matrix, year as col 1, Jan-Dec as
+   other cols
+
+*** OUTPUT
+
+ Result -- structure of results
+   .tsm:  3-col matrix (year, month, data value) of reorganized input D
+
+ .... all the other fields (below) are set to dummy values (see notes)
+  Result.units:  units of data--> 'null'
+  Result.names:  cell with station ids --> {'null'}
+  Result.lat:  vector with latitude of stns -->  NaN
+  Result.lon:  vector with longitude...-->  NaN
+  Result.elv:  vector with elevation (m)-->  NaN
+  Result.type  data type (Precip or Tmean) --> 'null'
+  Result.what -- description of fields and history fo generation-->'null'
+  Result.flnames -- cell with names (prefixes) of .mat input files--> {'null'}
+
+*** REFERENCES --- none
+
+*** UW FUNCTIONS CALLED -- none
+
+*** TOOLBOXES NEEDED
+
+ stats
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+
+<HR>
+<A name="suplabel"><H3>suplabel</H3> </A>
+<PRE>
+ suplabel: places text as a title, xlabel, or ylabel on a group of subplots
+ [ax,h]=suplabel(text,whichLabel,supAxes);
+ Copied 2009-10-18 from MATLAB File Exchange (see Notes)
+
+</PRE>
+ Places text as a title, xlabel, or ylabel on a group of subplots.
+ Function written by Ben Barrowes and made availabe free on MATLAB File
+ Exchange (see Notes).   Useful in connection with function subplot when
+ you want a "supertitle" above all subplots.
+
+<PRE>
+*** INPUT
+
+ text(1 x ?)s text to be placed
+ whichLabel (1 x ?)s   specifies where you want text placed
+   Any of 'x', 'y', 'yy', or 't', specifying whether the
+   text is to be the xlable, ylabel, right side y-label,
+   or "supertitle", espectively
+ supAxes is an optional argument specifying the Position of the
+  "super" axes surrounding the subplots.
+  supAxes defaults to [.075 .075 .85 .85]
+  specify supAxes if labels get chopped or overlay subplots
+
+
+*** OUTPUT
+
+ ax = handle to the axis
+ h = handle to the label
+   ax=suplabel(text,whichLabel,supAxes) returns a handle to the axis only
+   suplabel(text) with one input argument assumes whichLabel='x'
+
+*** REFERENCES
+
+ Ben Barrowes wrote this function (see Notes)
+
+*** TOOLBOXES NEEDED -- none
+
+*** UW FUNCTIONS CALLED -- none
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+
+<HR>
+<A name="arspectrum"><H3>arspectrum</H3> </A>
+<PRE>
+ arspectrum: spectrum of an AR(1) or AR(2) process
+ Result=arspectrum(phi,varnoise,nsize,delf,kopt);
+ Last Revised 2008-3-4
+
+</PRE>
+ Spectrum of an AR(1) or AR(2) process.
+ Returns the theoretical spectrum as a function of frequency for
+ frequencies f for an autoregressive order 1 or 2 process whose
+ autoregressive coefficients are in row vector phi. Also requires
+ information on the noise variance and series length.
+
+
+<PRE>
+*** INPUT
+
+ phi(1 x 2)r coefficients of autoregressive model; handles AR(1), AR(2),
+   or white noise (phi(2)==NaN instructs to use AR(1) --see Notes)
+ varnoise (1 x 1)r noise variance from fit of the AR model -- see Notes
+ nsize (1 x 1)n  number of observations in the time series
+ delf (1 x 1)r  frequency interval at which spectrum to be computed;
+   will be at frequencies [0:delf:0.5];  modulus of 0.5 and delf must be 0
+ kopt (1 x 2)i options
+   kopt(1):  sign convention on AR coefficients
+       ==1 Ljung (positive autocorrelation goes with NEGATIVE phi(1))
+       ==2 Box and Jenkins (positive autocorrelation goes with positive
+           phi(1)
+   kopt(2): terse vs verbose mode
+       ==1 terse, no graphics
+       ==2 verbose, plot of spectrum in figure 1
+
+
+*** OUTPUT
+
+ Result -- structure of results
+   .y spectral estimates at input frequencies Result.f
+   .f col vector of the frequencies
+   .A (1 x 1)r   area under theoretical spectrum, cumputed as sum of delf
+        times spectrum
+
+*** REFERENCES
+
+ Box, G.E.P., and Jenkins, G.M., 1976, Time series analysis: forecasting
+ and control: San Francisco, Holden Day, p. 575 pp.
+
+ Chatfield, C., 1975, The analysis of time series: Theory and practice, Chapman and Hall, London, 263 pp.
+
+ Ljung, L. 1995. System identification toolbox; for use with MATLAB, The
+ MathWorks, Inc.
+
+ Wilks, D. S., Statistical Methods in the Atmospheric Sciences, 467 p,
+ Academic Press, 1995 -- p 352-355
+
+*** TOOLBOXES NEEDED
+
+*** UW FUNCTIONS CALLED -- none
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+
+<HR>
+<A name="specbt1"><H3>specbt1</H3> </A>
+<PRE>
+ specbt1:  spectrum of a single time series  by Blackman Tukey method
+ [G,null_str]=specbt1(z,M,f,prevwind,sername,kopt,tlab);
+ Last revised 2009-10-22
+
+</PRE>
+ Compute and optionally plot the sample spectrum with 95% confidence bands.
+ You can interactively control the spectral smoothing through M, the length
+ of the smoothing window.  Figure includes white noise spectral line and
+ bandwidth bar.
+
+<PRE>
+*** IN
+
+ z (mz x 1)r  the time series
+ M (1 x 1)i  length of lag window used in calculations.
+ f (mf x 1)r  frequencies (cycles/yr, in range 0-0.5) for spectral estimates
+ prevwind(1 x 1)i  previous figure window
+ sername(1 x ?)s   name of series:  for annotating title
+ kopt (1 x 2)i or (1x1)i  options
+    kopt(1): whether or not to plot within function
+      ==1 interactive plotting (linear y) to select final value of M
+      ==2 no plotting; just compute spectrum given initial M
+      ==3 interactive plotting using semilogy plot
+   kopt(2): null-continuum (see notes)
+       ==1 white noise
+       ==2 red noise
+ tlab (time label for frequency (e.g., years^-1)
+
+*** OUT
+
+ G (mG x 5)r   spectrum and related quantities. By column:
+   1- frequency
+   2- period (time)
+   3- spectral estimate
+   4- lower 95% confi limit
+   5- upper 95% conf limit
+ null_str: tells what the last col of G is ("white noise" or "red noise"
+
+ Graphics output:
+
+ Figure 1.  Spectrum, with 95% confidence interval.  Horizontal line marks
+ spectrum of white noise with same variance as z. Horizontal bar marks
+ bandwidth of Tukey window used to smooth autocovariance function
+
+*** REFERENCES
+
+ Chatfield, C. 1975.  Time series analysis, theory and practice.
+ Chapman and Hall, London, 263 p.
+
+ Haan C. T. (2002) Statistical methods in Hydrology, second edition.
+ Iowa State University Press, Ames, Iowa.
+
+ Ljung, L. (1987). System Identification: Theory for the User,
+ Prentice-Hall, Englewood Cliffs, NJ.
+
+ Wilks, D.S., 1995, Statistical methods in the atmospheric sciences:
+ Academic Press, 467 p.
+
+
+*** UW FUNCTIONS CALLED
+
+ arspectrum -- for red-noise null continuum
+ specbt1/calcspec -- subfunction that does most of the meaty calculations
+
+*** TOOLBOXES NEEDED
+
+ statistics
+ system identification
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+
+<HR>
+<A name="corrone"><H3>corrone</H3> </A>
+<PRE>
+ corrone: product-moment correlation of one variable with several others
+ r=corrone(y,X);
+ Last revised 2006-9-2
+
+</PRE>
+ Correlation coefficients between one variable and several other variables.
+ Written for use as an alternative to corrcoef.m when you do not need the
+ full cross-correlation matrix between all variables. Ran about 40 times
+ faster for an example of 1000 time series of length 50 years.
+
+<PRE>
+*** INPUT
+
+ y (my x 1)r  key variable; desire correlations between this and all others
+ X (mX x nX)r other variables
+
+*** OUTPUT
+
+ r (nX x 1)r  product moment correlation between y and all series in X
+
+*** REFERENCES -- none
+*** UW FUNCTION CALLED -- none
+*** TOOLBOXES NEEDED -- none
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+
+
+<HR>
+<A name="pdgmsim"><H3>pdgmsim</H3> </A>
+<PRE>
+ pdgmsim: Exact simulation of Gaussian time series from its periodogram
+ Result=pdgmsim1(x,nsim,mtaper,kopt);
+ Last Revised 2009-10-27
+
+</PRE>
+ Exact simulation of Gaussian time series from its periodogram.
+ Function coded from Percival and Constantine (2006), using the smoothed-
+ periodogram spectral estimator and cirulant embedding following Dietrich
+ and Newsam(1997). "Exact" refers to the retetion of the statististical
+ properties --- including the spectrum --- of the observed series by the
+ simulations. An option allows final scaling of simulations to have same
+ and variance as the observed series.
+
+
+<PRE>
+*** INPUT
+
+ x (mx x 1)r  time series
+ nsim (1 x 1)n number of simulations desired
+ mtaper (1 x 1)r decimal proportion of series to be tapered. Suggest use mtaper=0.10
+ kopt (1 x `1)i  options
+  kopt(1) force simulation means and standard deviations to be same as sample
+       ==1 yes
+       ==2 no
+
+*** OUTPUT
+
+ Result -- structure of results
+   .Y (mx x nsim)r  time series matrix of simulated time series
+   .I (mx x 1)r  periodogram of x
+   .var (1 x 3)r variance of original series, tapered series, padded and tapered series
+
+*** REFERENCES
+
+
+ Bloomfield, P., 2000. Fourier analysis of time series: an introduction,
+ second edition. John Wiley & Sons, Inc., New York. 261 p.
+
+ Conover, W., 1980, Practical Nonparametric Statistics, 2nd Edition, John
+ Wiley & Sons, New York.
+
+ Deitrich, C.R., and Newsam, G.N., 1997. Fast and exact simulation of
+ stationary Gaussian processes through circulant embedding of the
+ covariance matrix. SIAM Journal on Scientific Computing, 18(4): 1088-1107.
+-- shortened to D&N(1997) in comments
+
+ Ljung, L., 1999. System Identification: Theory for the User (2nd
+ Edition). Prentice-Hall, Inc., New Jersey
+
+ Percival, D.B., and Constantine, W.L.B., 2006. Exact simulation of
+ Gaussian time series from nonparametric spectral estimates with
+ application to bootstrapping. Statistics and Computing, 16: 25-35.
+-- shortened to P&C(2006) in comments
+
+
+*** TOOLBOXES NEEDED
+
+ Statistics
+
+*** UW FUNCTIONS CALLED -- none
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+
+
+<HR>
+<A name="wtsbinom"><H3>wtsbinom</H3> </A>
+<PRE>
+ wtsbinom: weights for binomial filter of desired length or 50% response period
+ b=wtsbinom(a,kopt);
+ Last revised 2003-03-27
+
+</PRE>
+ Weights for binomial filter of desired length or 50% response period<P>
+
+<PRE>
+*** INPUT
+
+ a (1 x 1)i  desired number of weights or periof of 50% response . See kopt.
+ kopt(1 x 1)i option
+ kopt(1)==1   a is the period for which amp of freq response should be 0.5
+ kopt(1)==2   a is the number of weights (odd, central + both sides desired)
+
+*** OUTPUT
+
+ b (1 x n)r  computed weights (see notes)
+
+*** REFERENCES
+
+ Panofsky, H. and Brier, G., 1958.  Some applications of statistics to
+ meteorology.  The Pennsylvania State University.  p. 150.
+
+ Mitchell et al. (1966, p. 47)
+
+*** UW FUNCTIONS CALLED -- NONE
+*** TOOLBOXES NEEDED -- NONE
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+
+
+<HR>
+<A name="pdgmraw"><H3>pdgmraw</H3> </A>
+<PRE>
+ pdgmraw: Raw periodogram of tapered and padded time series
+ [I,f,v]=pdgmraw(x,mtaper,npad,kopt);
+ Last Revised 2009-12-17
+
+</PRE>
+ Raw periodogram of tapered and padded time series.
+ Computes raw periodogram after tapering and padding time series.  Uses
+ fast Fourier transform (FFT) for discrete Fourier transform (DFT) and
+ computes periodogram such that average ordinate equals variance of
+ original time series.
+
+
+<PRE>
+*** INPUT
+
+ x (mx x 1)r  time series
+ mtaper (1 x 1)r decimal proportion of series to be tapered
+ npad (1 x 1)n  desired padded length, a power of 2 at least as large as series-length
+ kopt (1 x `1)i  options
+  kopt(1) variance adjustment for tapering and padding
+       ==1 scale variance of tapered and padded variance before DFT
+       ==2 scale periodogram by factors depending on tapering and padding
+
+*** OUTPUT
+
+ I (mI x 1)r periodogram of x, at frequency zero and the Fourier frequencies
+ f (mI x 1)r frequencies for I
+ v (3x1) variances
+   row 1: original series, x
+   row 2: tapered x
+   row 3: tapered and padded x
+   row 4: average periodogram ordinate (average of I)
+
+*** REFERENCES
+
+
+ Bloomfield, P., 2000. Fourier analysis of time series: an introduction,
+ second edition. John Wiley & Sons, Inc., New York. 261 p.
+
+ Ljung, L., 1999. System Identification: Theory for the User (2nd
+ Edition). Prentice-Hall, Inc., New Jersey
+
+*** UW FUNCTIONS -- none
+*** TOOLBOXES
+
+ Statistics
+
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+
+
+<HR>
+<A name="dirfiles"><H3>dirfiles</H3> </A>
+<PRE>
+ dirfiles: cell-list of files with specified suffix(es) in a directory
+ pre=dirfiles(path1,suff,kopt);
+ Last revised 2010-02-18
+
+</PRE>
+ Cell-list of files with specified suffix(es) in a directory.
+ Finds all files with specified suffixes in a directory and returns the
+ filenames (without suffix) in fields of structure output variable.
+ Example of use would be to make list of all ".rwl" and ".crn" files in
+ some directory.
+
+
+<PRE>
+*** INPUT
+
+ path1 (1 x ?)s  directory of input files
+ suff {1x?}s cell array of suffixes of files for which lists desired (no
+       period)
+ kopt (1 x 1)i  options
+   kopt(1): case sensitivity of suffixes
+       ==1 case-insensitive
+       ==2 case-sensitive
+
+*** OUTPUT
+
+ pre. structure with fields x1, x2, ...
+   Each field has a col-cell array of files with the suffix in suff{1}, suff{2}, etc,
+   or is returned empty (see notes)
+
+*** REFERENCES -- NONE
+*** UW FUNCTIONS  -- NONE
+*** TOOLBOXES -- NONE
+
+</PRE>
+<BR>
+<A href="toolbox.html#fcnlist"> Back to Function List       </A>
+

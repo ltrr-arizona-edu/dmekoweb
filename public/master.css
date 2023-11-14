@@ -1,0 +1,25 @@
+P  {}
+
+H1  {}
+
+H2  {}
+
+H3  {}
+
+A  {}
+
+A:Visited  {}
+
+A:Active  {}
+
+A:Hover  {}
+
+BODY  {
+	text: 000000;
+	link: 0099CC;
+	vlink: 009933;
+	alink: CC3333;
+	background-color: CCCCCC;
+	
+}
+

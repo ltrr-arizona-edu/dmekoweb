@@ -1,0 +1,572 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>Applied Time Series Analysis</title>
+	<Link rel="stylesheet" type="text/css" href="master.css">
+</head>
+
+<body>
+<a name="ctop"></a>
+	<h1>GEOS 585A, Applied Time Series Analysis</h1>
+	
+	
+	
+	<ul>
+		<li><a href="#cinstruct">Instructor</a>
+		<li><a href="#cmode">Course Mode and University Policies</a>
+		<li><a href="#cdescribe">Course Description</a>
+		<li><a href="#coverview">Overview</a>
+		<li><a href="#cgoals">Goals</a>
+		<li><a href="#cprereq">Prerequisites</a>
+		<li><a href="#cotherreq">Other Requirements</a>
+		<li><a href="#cavail">Availability</a>
+		<li><a href="#csyllabus">Syllabus</a>
+			<ul>
+				<li><a href="#ccalendar">Calendar</a>
+				<li><a href="#cdata">Data</a>
+				<li><a href="#cassign">Assignments</a>
+				<li><a href="#cread">Readings</a>
+				<li><a href="#cgrading">Grades</a>
+				<li><a href="#coutline">Course Outline</a>
+				<li><a href="#clessons">Lessons</a>
+				<li><a href="#cpolicies">University Policies</a>
+			</ul>
+		
+		<li><a href="#cdownload">Download zipped files </a>
+		<li><a href="#chardcode">Tailoring the Matlab Scripts</a>
+		<li><a href="#chandout">Accessing files of notes and assignments</a>
+	
+		
+	</ul>
+	
+	<table cols=>
+		<tr>
+			<td><a href="index.html">Home</a></td>
+			<td><a href="vita.html">Vita</a></td>
+			<td><a href="geos585a.html">Course</a></td>
+			<td><a href="toolbox.html">Toolbox</a></td>
+			<td><a href="contact.html">Contact</a></td>
+		</tr>
+	</table>
+	
+	
+
+
+
+<a name="cinstruct"><H2>Instructor</h2></a>
+<a href="vita.html">David M. Meko</a> <p>
+<a href="http://www.ltrr.arizona.edu">Laboratory of Tree-Ring Research</a>, , Room 417, Bryant Bannister Tree-Ring Building (Bldg #45B)
+<p>
+Email: dmeko@LTRR.arizona.edu <p>
+Phone: (520) 621-3457 <p>
+Fax: (520) 621-8229 <p>
+Office hours Friday, 1:00-6:00 PM (please email to schedule zoom meeting)
+<p>
+<a href="#ctop">Back to Top of Page</a>
+<p>
+<p>
+
+<a name="cmode"></a><H2>Course Mode and University Policies</h2>
+This course is being taught <a href="https://teachingmodels.arizona.edu/"> "Live Online"</a> in Spring Semester 2021. The University of Arizona has policies generally applicable to all graduate courses, whatever the mode. The policies cover such topics as 1) absence and class participation, 2) threatening behavior, 3) accessibility and accommodations, 4) academic integrity, and 5) nondiscrimination and anti-harassment. More information can be found at <a href="https://academicaffairs.arizona.edu/syllabus-policies"> University Policies.</a>
+<p>
+<a href="#ctop">Back to Top of Page</a>
+
+	
+<a name="cdescribe"></a><H2>Course Description</h2>
+Analysis tools in the time and frequency domains are introduced in the context of  sample time series. I use a dataset of sample time series to illustrate methods. This year the sample dataset comes from an NSF project on hydrologic variability in the Truckee-Carson Basin of California/Nevada. This dataset includes tree-ring chronologies, precipitation records, streamflow records, and time series of snow-water equivalent measured at snow-course stations. You will assemble your own time series for use in the course. Ideally these are from your own research, but in any case should be time series you would like to understand better.       
+<a href="#ctop">Back to Top of Page</a>
+
+
+<a name="coverview"></a><H2>Overview</h2>   
+This is an introductory course, with emphasis on practical aspects of time series analysis. Methods are hierarchically introduced  -- starting with terminology and exploratory graphics, moving to descriptive statistics, and ending with basic modeling procedures. Topics include detrending, filtering, autoregressive  modeling, spectral analysis and regression.  You spend the first two weeks installing Matlab on your laptop, getting a basic introduction to Matlab, and assembling your dataset of time series for the course. Twelve topics, or "lessons" are then covered, each allotted a week, or two class periods. Twelve class assignments go along with the topics. Assignments consist of applying methods by running pre-written Matlab scripts (programs) on your time series and interpreting the results. 
+<P>
+The course is 3 credits for University of Arizona students, and 1-3 credits for others.
+<P>
+Any time series with a constant time increment (e.g., year, month, day) is a candidate for use in the course.  Examples are annual precipitation, monthly mean temperature, and daily cases of COVID-19.<P>
+<a href="#ctop">Back to Top of Page</a>
+<P>
+
+
+<a name="cgoals"></a><H2>Goals</h2>   As a result of taking the course, you should:
+<ol>
+<li>understand basic time series concepts and terminology  
+<li>be able to  select time series methods appropriate to goals 
+<li>be able to critically evaluate scientific literature applying the time series methods covered
+<li>have improved understanding of time series properties of your own dataset
+<li>be able to concisely summarize results of time series analysis in writing
+</ol>
+<P>
+
+<a name="cprereq"></a><H2>Prerequisites</h2>   
+<ol>
+<li>An introductory statistics course
+<li>Access to a laptop computer capable of having Matlab installed on it  
+<li>Permission of the instructor (undergraduates or non-University-of-Arizona students) 
+</ol>
+<P>
+
+<a name="cotherreq"></a><H2>Other Requirements</h2>   
+<ol>
+<li>If you are on a University of Arizona (UA) student, you have access to Matlab and required toolboxes  through a UA site license as  <a href="http://softwarelicense.arizona.edu/mathworks-matlab"> no cost software.</a> No previous experience with Matlab is required, and computer programming is not part of the course.  
+<li>If you are not a University of Arizona student, you may, with the instructor's permission, be able to take the course in Spring 2021 semester as an <a href="http://saem-aiss.arizona.edu/student-affairs/student-fees/icourse-fee"> "iCourse".</a> You must make sure that you have access to Matlab and the required toolboxes (see below) at your location. 
+<li>Access to the internet. There is no paper exchange in the course. Notes and assignments are exchanged electronically and completed assignments are submitted electronically through the University of Arizona Desire2Learn  <a href="http://help.d2l.arizona.edu/"> (D2L) </a> system.
+
+
+</ol>
+<p>
+<em>Matlab version.</em> I update scripts and functions now and then using the current site-license release of Matlab. For 2021, I am still using MATLAB Version 9.5.0.944444 (R2018b). Beware that cripts and functions used in the course may not run on earlier versions of Matlab.<p>
+
+Install the whole Matlab package (includes all toolboxes) when installing from the U of A site license. Not all of the toolboxes are needed, but this is the easiest installation. If you are not using the site license, keep in mind that my scripts and functions make extensive use of four toolboxes: Statistics, Signal Processing, System Identification, and Curve Fitting. <p>
+
+
+<P>
+<a name="cavail"></a><H2>Availability</h2>
+
+The course is offered in Spring Semester every other year (2019, 2021, etc.).   It is open to graduate students and may also be taken by undergraduate seniors with permission of the instructor. Enrollment  is capped at 20 for Spring Semester 2021.<p> A small number of students not at the University of Arizona can also be accommodated through the "iCourse" path descrbed above. 
+<a href="#ctop">Back to Top of Page</a>
+
+<P>
+<a name="coutline"></a><H2>Course Outline (Lessons)</h2>   
+<ol>
+		<li><a href="#cLesson1">Introduction to time series;  organizing data for analysis</a>
+		<li><a href="#cLesson2">Probability distribution</a>
+		<li><a href="#cLesson3">Autocorrelation</a>
+		<li><a href="#cLesson4">Spectrum</a>
+		<li><a href="#cLesson5">Autoregressive-Moving Average (ARMA) modeling</a>
+		<li><a href="#cLesson6">Trend</a>
+		<li><a href="#cLesson7">Detrending</a>
+		<li> <a href="#cLesson8">Filtering</a>
+		<li><a href="#cLesson9">Correlation</a>
+		<li><a href="#cLesson10">Lagged Correlation</a>
+		<li><a href="#cLesson11">Multiple linear regression</a>
+		<li><a href="#cLesson12">Validating the regression model  		 </a>
+	
+</ol>
+<a href="#ctop">Back to Top of Page</a>
+
+
+<a name="csyllabus"><H2>Syllabus</h2></a>
+
+<H3><a name="ccalendar">Calendar</a></h3>
+
+<em>Spring 2021 semester.  </em>Class meets twice a week for 75 minute sessions, 9:00-10:15 AM T/Th, over Zoom.  The first day of our class is Jan 14 (Thurs).  The last day of class is May 4 (Tues).  There is no spring break this year, but instead there are "reading days" with no classes. Class will be cancelled for four days this semester:  Feb 25 and Mar 9, which are COVID-19 "reading days"; and whichever two days (Tuesday & Thursday) that happen to fall in the the U-of-A Earth Week. I do not yet know the Earth Week schedule for this year. Earth Week is usually around the last week of March.<p>
+
+The schedule typically allows about two weeks for gathering data and becoming familiar with Matlab. After that, one week (two class periods) is devoted to each of the 12 lessons or topics. Class meets on Tuesday and Thursday. A new topic is introduced on Tuesday, and is continued on the following Thursday. Thursday's class ends with an assignment and a demonstration of running the assignment Matlab script on my sample data. The assignment is due (must be uploaded by you to D2L) before class the following Tuesday. 
+
+<p>
+Any online students not at the University of Arizona are expected to follow the same schedule of submitting assignments as regular students. In the "live online" mode, students have access to recorded zoom lectures. All students have access to D2L for submitting assignments.
+
+
+
+<p>
+Once we are into into the assignments on data analysis (after first couple of weeks), the class routine is as follows:
+
+<p>
+<strong><span style="font-size: smaller;">Tuesday</span></strong>
+<li>3-minute lightning talk by a student (chosen randomly the previous Thursday). </li> 
+<li>1/2 hour for guided self-assessment, grading, and uploading of graded assignment to D2L</li> 
+<li>Remainder of class time to introduce the next topic</li>
+<p>
+In the lightning talk, the student puts one or more figures from the submitted assignment up on the screen, and describes the time series analyzed and at least one finding from the analysis. Goals of this activity, new in spring 2019, are to 1) expose students to a variety of time series, 2) provide experience in communication of time series methods, and 3) give practical experience in the lightning-talk of briefly and concisely describing research.
+
+<p>
+<strong>Thursday</strong>
+<li>Second part of  lecture on this week's topic</li> 
+<li>Breakout-room discussion of some point raised by the instructor</li> 
+<li>Description of the next assignment and a trial run on my sample data</li> 
+<li>Random picking (sampling without replacement) of next Tuesday's lightning-talk presenter</li>
+
+
+<p>
+The breakout-room discussion is new for Spring Semester 2021. Students are assigned to breakout rooms and to discuss a specific time series question related to the current topic. After 10 minutes, students return, and one student representing a breakout group reports on their discussion. 
+<p>
+
+
+<a href="#ctop">Back to Top of Page</a>
+
+<a name="cdata"></a><H3>Data</h3>
+You analyze data of your own choosing in the class assignments.  As stated in the <a href="#coverview">course overview</a>, there is much flexibility in the choice of time series.   I will make suitable time series available, but it is best to focus on your own research data. The first assignment involves running a script that stores the data and metadata you have gathered in Matlab structure variables in a "mat" file, a specific type of storage file readable only by Matlab. Subsequent assignments draw data from the mat file for time series analysis.  <P>
+
+<a href="#ctop">Back to Top of Page</a>
+
+
+<a name="cassign"></a><H3>Assignments</h3>
+The 12 topics are addressed sequentially over the semester, which covers approximately 15 weeks.  About the first two weeks (4-5 class meetings) are used for some introductory material, deciding on and gathering your time series, and readying Matlab on your laptop. Each week after that is devoted to one of the 12 course topics. Each assignment consists of reading a chapter of notes, running an associated Matlab script that applies selected methods of time series analysis to your data, and writing up your interpretation of the results.  Assignments require understanding of the lecture topics as well as ability to use the computer and software. <p>
+
+You submit assignments by uploading them to D2L before the Tuesday class when the next topic is introduced. Students self-grade their assignments at the beginning of class on Tuesday. I browse the self-graded assignments the next day, assess the writing in the assignment, and may or may not change the student's self-assessed grade. To find out how to access assignments, click <a href="#chandout">assignment files</a>.
+
+
+
+<a name="cread"></a><H3>Readings</h3>
+Readings consist of class notes.  There are twelve sets of  <a href="#chandout">.pdf notes files</a> , one for each of the course topics.  You can access these pdf files through D2L. There are 12 chapters of notes. I put the pdfs up on D2L a couple of weeks before covering the topic in class. More information on the various topics covered in the course can be found through references listed at the end of each chapter of class notes. People from outside the course can also access the full set of notes from last year through the web site. <p>
+
+<a href="#ctop">Back to Top of Page</a>
+
+<H3><a name="cgrading">Grades</a></h3>
+
+Grades are based entirely on performance on the assignments, each of which is worth 10 points.  There are no exams. The total number of possible points for the 12 topics is 12 x 10 = 120.  A grade of "A" required 90-100 percent of the possible points. A grade of "B" requires 80-90 percent. A grade of "C" requires 70-80 percent, and so forth. In each assignment points are subtracted from the maximum of 10 by self-assessment guided by a rubric presented in class. You should mark the number of points earned at the top of each graded assignment, and annotate with reference to the rubric any subtraction of points. <p>
+
+The instructor looks over the self-graded assignments the next day, and may subtract up to an additional point for shortcomings in the writing quality (e.g., too long, incomprehensible, many spelling or grammatical errors). 
+
+Assignments, given in class on Thursday, are due (must be uploaded to D2L by you) before the start of class the following Tuesday. The first half hour of Tuesday's meeting period will be dedicated to presentation of a grading rubric, self-assessment of completed assignments, and uploading of self-graded assignments to D2L. This schedule gives you 4 days to complete and upload the assignment to D2L before 9:00 am Tuesday. D2L keeps track of the time the assignment was uploaded, and no penalty is assessed as long as it is uploaded before 9:00 AM on Tuesday of the due date.  <p>
+
+A late penalty of 3 points is assessed if the assignment is not submitted to D2L by 9 AM Tuesday. A late penalty of 1 point is assessed if the graded assignment is not uploaded to D2L by 5 AM Wednesday, which is when I begin looking over your self-graded assignments. 
+
+If you have some scheduled need to be away from class (e.g., attendance at a conference), you are responsible for uploading your assignment before 9:00 AM the Tuesday it is due, and for uploading the self-graded version by 10:15 AM the same day. In other words, the schedule is the same as for the students who are in class. If an emergency comes up (e.g., you catch COVID) and cannot do the assignment or assessment on schedule, please send me an email and we will reach some accommodation. Otherwise, the late penalties described above will apply.
+   <p>
+
+<a href="#ctop">Back to Top of Page</a>
+	
+	
+<H3><a name="clessons">Lessons</a> </H3>
+
+
+
+<ol>
+
+<li><a name="cLesson1"><b>Introduction to time series;  organizing data for analysis</b></a><p>
+
+A time series is broadly defined as any series of measurements taken at different times. Some basic descriptive categories of time series are 1) long vs short, 2) even time-step vs uneven time-step, 3) discrete vs continuous, 4)  periodic vs aperiodic, 5) stationary vs nonstationary, and 6) univariate vs multivariate. These properties as well as the temporal overlap of multiple series, must be considered in selecting a dataset for analysis in this course. You will analyze your own time series in the course.  The first steps are to select those series and to store them in structures in a mat file. Uniformity in storage at the outset is convenient for this class so that attention can then be focused on understanding time series methods rather debugging computer code to ready the data for analysis. A structure is a Matlab variable similar to a database in that the contents are accessed by textual field designators.  A structure can store data of different forms.  For example, one field might be a numeric time series matrix, another might be text describing the source of data, etc.  In the first assignment you will run a Matlab script that reads your time series and metadata from ascii text files you prepare beforehand and stores the data in Matlab structures in a single mat file.  In subsequent assignments you will apply time series methods to the data by running Matlab scripts and functions that load the mat file and operate on those structures.    
+<p></p> <p>
+
+		<b>Assignments</b><p>
+		<b>Select sample data to be use for assignments during the course</b><p>
+		<b>Read:</b>  (1) Notes_1.pdf, (2) "Getting Started", accessible from the MATLAB help menu<p>
+		<b>Answer:</b>  Run script geosa1.m and answer questions listed in the file in a1.pdf<p>
+<b>What to Know</b><p>
+<ul>
+<li>How to distinguish the categories of time series
+<li>How to start and quit MATLAB
+<li>How to enter MATLAB commands at command prompt
+<li>How to create figures in figure window
+<li>How to export figures to your word processor
+<li>Difference between MATLAB scripts and functions
+<li>How to run scripts and functions
+<li>The form of a MATLAB "structure" variable
+<li>How to apply the script geosa1.m to get a set of time series and metadata into MATLAB structures
+</ul>
+<p>
+<a href="#ctop">Back to Top of Page</a>
+<br><br><br><br>
+
+
+<li><a name="cLesson2"><b>Probability distribution</b></a><p>
+The probability distribution of a time series describes the probability that an observation falls into a specified range of values.  An empirical probability distribution for a time series can be arrived at by sorting and ranking the values of the series.  Quantiles and percentiles are useful statistics that can be taken directly from the empirical probability distribution.  Many parametric statistical tests assume the time series is a sample from a population with a particular population probability distribution.  Often the population is assumed to be normal.  This chapter presents some basic definitions, statistics and plots related to the probability distribution.  In addition, a test (Lilliefors test) is introduced for testing whether a sample comes from a normal distribution with unspecified mean and variance.
+<p>
+
+		<b>Assignments</b><p>
+		<b>Read:</b>  Notes_2.pdf<p>
+		<b>Answer:</b>  Run script geosa2.m and answer questions listed in the file in a2.pdf<p>
+<b>What to Know</b><p>
+<ul>
+<li>Definitions of terms: time series, stationarity, probability density, distribition function, quantile, spread, location, mean, standard deviation, and skew
+<li>How to interpret the most valuable graphic in time series analysis -- the time series plot
+<li>How to interpret the box plot, histogram and normal probability plot
+<li>Parameters and shape of the normal distribution
+<li>Lilliefors test for normality: graphical description, assumptions, null and alternative hypotheses
+<li>Caveat on interpretation of significance levels of statistical tests when time series not "random" in time
+<Li>How to apply geosa2.m to check the distribution properties of a time series and test the series for normality
+
+</ul>
+<p>
+<a href="#ctop">Back to Top of Page</a>
+<br><br><br><br>
+
+
+
+<li><a name="cLesson3"><b>Autocorrelation</b></a><p>
+
+Autocorrelation refers to the correlation of a time series with its own past and future values.  Autocorrelation is also sometimes called  <i>lagged correlation</i> or <i>serial correlation</i>, which refers to the correlation between members of a series of numbers arranged in time.  Positive autocorrelation might be considered a specific form of <i>persistence</i>, a tendency for a system to remain in the same state from one observation to the next. The likelihood of tomorrow being rainy is greater if today is rainy than if today is dry.  Geophysical time series are frequently autocorrelated because of inertia or carryover in the physical system. The slowly evolving low pressure systems in the atmosphere might impart persistence to daily rainfall.  The slow drainage of groundwater reserves might impart correlation to successive annual flows of a river.  Stored photosynthates might impart correlation to successive annual values of tree-ring indices.  Autocorrelation complicates the application of statistical tests by reducing the number of independent observations.  Autocorrelation can also complicate the identification of significant covariance or correlation between time series (e.g., precipitation with a tree-ring series).  Autocorrelation can be exploited for predictions: an autocorrelated time series is predictable, probabilistically, because future values depend on current and past values.  Three tools for assessing the autocorrelation of a time series are (1) the time series plot, (2) the lagged scatterplot, and (3) the autocorrelation function.
+<p>
+
+		<b>Assignments</b><p>
+		<b>Read:</b>  Notes_3.pdf<p>
+		<b>Answer:</b>  Run script geosa3.m and answer questions listed in the file in a3.pdf<p>
+<b>What to Know</b><p>
+<ul>
+<li>Definitions: autocorrelation, persistence, serial correlation, autocorrelation function (acf), autocovariance function (acvf), effective sample size
+<li>How to recognize autocorrelation in the time series plot
+<li>How to use lagged scatterplots to assess autocorrelation
+<li>How to interpret the plotted acf
+<li>How to adjust the sample size for autocorrelation
+<li>Mathematical definition of the autocorrelation function
+<li>Terms affecting the width of the computed confidence band of the acf
+<li>The difference between a one-sided and two-sided test of significant lag-1 autocorrelation
+<li>How to apply geos3.m to study the autocorrelation of a time series
+
+</ul>
+<p>
+<a href="#ctop">Back to Top of Page</a>
+<br><br><br><br>
+
+
+<li><a name="cLesson4"><b>Spectrum</b></a><p>
+
+The spectrum of a time series summarizes the partitioning of variance of the series to rapid and gradual fluctuations.  Rapid fluctuations are those with short wavelength, or high frequency. Gradual fluctuations are those with long-wavelength, or low-frequency The spectrum by definition describes the variance of the series as a function of frequency or wavelength. The object of spectral analysis is to estimate and study the spectrum.  The spectrum contains no new information beyond that in the autocovariance function (acvf), and in fact the spectrum can be computed mathematically by transformation of the acvf.  But the spectrum and acvf present the information on the variance of the time series from complementary viewpoints.  The acf summarizes information in the time domain and the spectrum in the frequency domain. 
+
+ <p>
+
+		<b>Assignments</b><p>
+		<b>Read:</b>  Notes_4.pdf<p>
+		<b>Answer:</b>  Run script geosa4.m and answer questions listed in the file in a4.pdf<p>
+<b>What to Know</b><p>
+<ul>
+<li>Definitions: frequency, period, wavelength, spectrum, Nyquist frequency, Fourier frequencies, bandwidth
+<li>Reasons for analyzing a spectrum 
+<li>How to interpret a plotted spectrum in terms of distribution of variance
+<li>The difference between a spectrum and a normalized spectrum
+<li>Definition of the "lag window" as used in estimating the spectrum by the Blackman-Tukey method
+<li>How the choice of lag window affects the bandwidth and variance of the estimated spectrum
+<li>How to define a "white noise" spectrum and "autoregressive" spectrum
+<li>How to sketch some typical spectral shapes: white noise, autoregressive, quasi-periodic, low-frequency, high-frequency
+<li>How to apply geosa4.m to analyze the spectrum of a time series by the Blackman-Tukey method
+
+</ul>
+<p>
+<a href="#ctop">Back to Top of Page</a>
+<br><br><br><br>
+
+
+
+<li><a name="cLesson5"><b>Autoregressive-Moving Average (ARMA)modeling</b></a><p>
+
+Autoregressive-moving-average (ARMA) models are mathematical models of the persistence, or autocorrelation, in a time series.  ARMA models are widely used in hydrology, dendrochronology, econometrics, and other fields.  There are several possible reasons for fitting ARMA models to data.   Modeling can contribute to understanding the physical system by revealing something about the physical process that builds persistence into the series.  For example, a simple physical water-balance model consisting of terms for precipitation input, evaporation, infiltration, and groundwater storage can be shown to yield a streamflow series that follows a particular form of ARMA model.  ARMA models can also be used to predict behavior of a time series from past values alone.  Such a prediction can be used as a baseline to evaluate possible importance of other variables to the system.  ARMA models are widely used for prediction of economic and industrial time series.  ARMA models can also be used to remove persistence.  In dendrochronology, for example, ARMA modeling is applied routinely to generate residual chronologies – time series of ring-width index with no dependence on past values. This operation, called prewhitening, is meant to remove biologically-related persistence from the series so that the residual may be more suitable for studying the influence of climate and other outside environmental factors on tree growth.<p>
+
+		<b>Assignments</b><p>
+		<b>Read:</b>  Notes_5.pdf<p>
+		<b>Answer:</b>  Run script geosa5.m and answer questions listed in the file in a5.pdf<p>
+<b>What to Know</b><p>
+<ul>
+
+<li>The functional form of the simplest AR and ARMA models 
+<li>Why such models are referred to as <em>autoregressive</em> or <em>moving average</em>
+<li>The three steps in ARMA modeling
+<li>The diagnostic patterns of the autocorrelation and partial autocorrelation functions for an AR(1) time series
+<li>Definition of the final prediction error (FPE) and how the FPE is used to select a "best" ARMA model
+<li>Definition of the Portmanteau statistic, and how it and the acf of residuals can be used to assess whether an ARMA model effectively models the persistence in a series
+<li>How the principle of parsimony is applied in ARMA modeling
+<li>Definition of prewhitening
+<li>How prewhitening affects (1) the appearance of a time series, and (2) the spectrum of a time series
+<li>How to apply geosa5.m to ARMA-model a time series
+
+</ul>
+<p>
+<a href="#ctop">Back to Top of Page</a>
+<br><br><br><br>
+
+
+
+<li><a name="cLesson6"><b>Trend</b></a><p>
+<p>
+Trend in a time series is a slow, gradual change in some property of the series over the whole interval under investigation.  Trend is sometimes loosely defined as a long term change in the mean, but can also refer to change in other statistical properties.  For example, tree-ring series of measured ring width frequently have a trend in variance as well as mean.  Years ago a time series was typically decomposed into trend, seasonal or periodic components, and irregular fluctuations, and the various parts were studied separately.  Modern analysis techniques frequently treat the series without such routine decomposition, but separate consideration of trend is still often required. One of the most frequent question asked about a time series is whether there is significant trend in mean.<p>
+
+		<b>Assignments</b><p>
+		<b>Read:</b>  Notes_6.pdf<p>
+		<b>Answer:</b>  Run script geosa6.m and answer questions listed in the file in a6.pdf<p>
+<b>What to Know</b><p>
+<ul>
+<li>Definitions: trend, nonstationarity, hypothesis test
+<li>How to test for a monotonic trend in mean of a time series
+<li>How to test for a difference of means or variances in two segments of an autocorrelated time series
+</ul>
+<p>
+<a href="#ctop">Back to Top of Page</a>
+<br><br><br><br>
+
+
+
+<li><a name="cLesson7"><b>Detrending</b></a><p>
+
+Detrending is the statistical or mathematical operation of removing trend from the series.  Detrending is often applied to remove a feature thought to distort or obscure the relationships of interest.  In climatology, for example, a temperature trend due to urban warming might obscure a relationship between cloudiness and air temperature.  Detrending is also sometimes used as a preprocessing step to prepare time series for analysis by methods that assume stationarity.  Many alternative methods are available for detrending.  Simple linear trend in mean can be removed by subtracting a least-squares-fit straight line.  More complicated trends might require different procedures.  For example, the cubic smoothing spline is commonly used in dendrochronology to fit and remove ring-width trend that might not be linear, or not even monotonically increasing or decreasing over time.  In studying and removing trend, it is important to understand the effect of detrending on the spectral properties of the time series.  This effect can be summarized by the frequency response of the detrending function.    <p>
+
+		<b>Assignments</b><p>
+		<b>Read:</b>  Notes_7.pdf<p>
+		<b>Answer:</b>  Run script geosa7.m and answer questions listed in the file in a7.pdf<p>
+<b>What to Know</b><p>
+<ul>
+<li>Definitions: frequency response, spline, cubic smoothing spline  
+<li>Pros and cons of ratio vs difference detrending
+<li>Interpretation of terms in the equation for the "spline parameter" 
+<li>How to choose a spline interactively from desired frequency response
+<li>How the spectrum is affected by detrending 
+<li>How to measure the importance of the trend component in a time series
+<li>How to apply geosa7.m to interactively choose a spline detrending function and detrend a time series
+
+</ul>
+<p>
+<a href="#ctop">Back to Top of Page</a>
+<br><br><br><br>
+
+
+
+<li><a name="cLesson8"><b>Filtering</b></a><p>
+
+The estimated spectrum of a time series gives the distribution of variance as a function of frequency.  Depending on the purpose of analysis, some frequencies may be of greater interest than others, and it may be helpful to reduce the amplitude of variations at other frequencies by statistically filtering them out before viewing and analyzing the series.  For example, the high-frequency (year-to-year) variations in a gauged discharge record of a watershed may be relatively unimportant to water supply in a basin with large reservoirs that can store several years of mean annual runoff.  Where low-frequency variations are of main interest, it is desirable to smooth the discharge record to eliminate or reduce the short-period fluctuations before using the discharge record to study the importance of climatic variations to water supply.   Smoothing is a form of filtering which produces a time series in which the importance of the spectral components at high frequencies is reduced.  Electrical engineers call this type of filter a low-pass filter, because the low-frequency variations are allowed to <i> pass through</i> the filter.  In a low-pass filter, the low frequency (long-period) waves are barely affected by the smoothing.  
+It is also possible to filter a series such that the low-frequency variations are reduced and the high-frequency variations unaffected.  This type of filter is called a high-pass filter.  Detrending is a form of high-pass filtering:  the fitted trend line tracks the lowest frequencies, and the residuals from the trend line have had those low frequencies removed.  A third type of filtering, called band-pass filtering, reduces or filters out both high and low frequencies, and leaves some intermediate frequency band relatively unaffected.
+In this lesson, we cover several methods of smoothing, or low-pass filtering.  We have already discussed how the cubic smoothing spline might be useful for this purpose.  Four other types of filters are discussed here: 1) simple moving average, 2) binomial, 3) Gaussian, and 4) windowing (Hamming method).   Considerations in choosing a type of low-pass filter are the desired frequency response and the span, or width, of the filter.  
+  
+ <p>  
+
+		<b>Assignments</b><p>
+		<b>Read:</b>  Notes_8.pdf<p>
+		<b>Answer:</b>  Run script geosa8.m and answer questions listed in the file in a8.pdf<p>
+<b>What to Know</b><p>
+<ul>
+<li>Definitions: filter, filter weights, filter span, low-pass filter, high-pass filter, band-pass filter; frequency response of a filter
+<li>How the Gaussian filter is related to the Gaussian distribution
+<li>How to build a simple binomial filter manually (without the computer)
+<li>How to describe the frequency response function in terms of a system with sinusoidal input and output
+<li>How to apply geosa8.m to interactively design a Gaussian, binomial or Hamming-window lowpass filter for a time series
+
+</ul>
+<p>
+<a href="#ctop">Back to Top of Page</a>
+<br><br><br><br>
+
+
+
+<li><a name="cLesson9"><b>Correlation</b></a><p>
+
+The Pearson product-moment correlation coefficient is probably the single most widely used statistic for summarizing the relationship between two variables.  Statistical significance and caveats of interpretation of the correlation coefficient as applied to time series are topics of this lesson.  Under certain assumptions, the statistical significance of a correlation coefficient depends on just the sample size, defined as the number of independent observations.  If time series are autocorrelated, an <i>effective</i> sample size, lower than the actual sample size, should be used when evaluating significance.  Transient or spurious relationships can yield significant correlation for some periods and not for others.  The time variation of strength of linear correlation can be examined with plots of correlation computed for a sliding window.  But if many correlation coefficients are evaluated simultaneously, confidence intervals should be adjusted (<i>Bonferroni adjustment</i>) to compensate for the increased likelihood of observing some high correlations where no relationship exists.  Interpretation of sliding correlations can be also be complicated by time variations of mean and variance of the series, as the sliding correlation reflects covariation in terms of standardized departures from means in the time window of interest, which may differ from the long-term means.  Finally, it should be emphasized that the Pearson correlation coefficient measures strength of linear relationship.  Scatterplots are useful for checking whether the relationship is linear.    <p>
+
+		<b>Assignments</b><p>
+		<b>Read:</b>  Notes_9.pdf<p>
+		<b>Answer:</b>  Run script geosa9.m and answer questions listed in the file in a9.pdf<p>
+<b>What to Know</b><p>
+<ul>
+<li>Mathematical definition of the correlation coefficient
+<li>Assumptions and hypothesis for significance testing of correlation coefficient
+<li>How to compute significance level of correlation coefficient and to adjust the significance level for autocorrelation in the individual time series
+<li>Caveats to interpretation of correlation coefficient
+<li>Bonferroni adjustment to signficance level of correlation under multiple comparisons 
+<li>Inflation of variance of estimated correlation coefficient when time series autocorrelated 
+<li>Possible effects of data transformation on correlation 
+<li>How to interpret plots of sliding correlations
+<li>How to apply geosa9.m to analyze correlations and sliding correlations between pairs of time series
+
+
+</ul>
+<p>
+<a href="#ctop">Back to Top of Page</a>
+<br><br><br><br>
+
+
+
+<li><a name="cLesson10"><b>Lagged correlation</b></a><p>
+Lagged relationships are characteristic of many natural physical systems. Lagged correlation refers to the correlation between two time series shifted in time relative to one another.  Lagged correlation is important in studying the relationship between time series for two reasons.  First, one series may have a delayed response to the other series, or perhaps a delayed response to a common stimulus that affects both series.  Second, the response of one series to the other series or an outside stimulus may be <i>smeared</i> in time, such that a stimulus restricted to one observation elicits a response at multiple observations.  For example, because of storage in reservoirs, glaciers, etc., the volume discharge of a river in one year may depend on precipitation in the several preceding years.  Or because of changes in crown density and photosynthate storage, the width of a tree-ring in one year may depend on climate of several preceding years. The simple correlation coefficient between the two series properly aligned in time is inadequate to characterize the relationship in such situations.   Useful functions we will examine as alternative to the simple correlation coefficient are the cross-correlation function and the impulse response function.  The cross-correlation function is the correlation between the series shifted against one another as a function of number of observations of the offset.   If the individual series are autocorrelated, the estimated cross-correlation function may be distorted and misleading as a measure of the lagged relationship.  We will look at two approaches to clarifying the pattern of cross-correlations.  One is to individually remove the persistence from, or prewhiten, the series before cross-correlation estimation.  In this approach, the two series are essentially regarded on <i>equal footing</i>.  An alternative is the <i>systems</i> approach: view the series as a dynamic linear system -- one series the input and the other the output -- and estimate the impulse response function.  The impulse response function is the response of the output at current and future times to a hypothetical <i>pulse</i> of input restricted to the current time. <p>
+
+		<b>Assignments</b><p>
+		<b>Read:</b>  Notes_10.pdf<p>
+		<b>Answer:</b>  Run script geosa10.m and answer questions listed in the file in a10.pdf<p>
+<b>What to Know</b><p>
+<ul>
+<li>Definitions: cross-covariance function, cross-correlation function, impulse response function, lagged correlation, causal, linear
+<li>How autocorrelation can distort the pattern of cross-correlations and how prewhitening is used to clarify the pattern
+<li>The distinction between the 'equal footing' and 'systems' approaches to lagged bivariate relationships
+<li>Which types of situations the impulse response function (irf) is an appropriate tool
+<li>How to represent the causal system treated by the irf in a flow diagram
+<li>How to apply geos10.m to analyze the lagged cross-correlation structure of a a pair of time series
+
+</ul>
+<p>
+<a href="#ctop">Back to Top of Page</a>
+<br><br><br><br>
+
+
+
+
+<li><a name="cLesson11"><b>Multiple linear regression</b></a><p>
+
+Multiple linear regression (MLR) is a method used to model the linear relationship between a dependent variable and one or more independent variables.  The dependent variable is sometimes also called the predictand, and the independent variables the predictors.  MLR is based on least squares: the model is fit such that the sum-of-squares of differences of observed and predicted values is minimized.  MLR is probably the most widely used method in dendroclimatology for developing models to reconstruct climate variables from tree-ring series.  Typically, a climatic variable is defined as the predictand and tree-ring variables from one or more sites are defined as predictors.  The model is fit to a period -- the calibration period -- for which climatic and tree-ring data overlap.  In the process of fitting, or estimating, the model, statistics are computed that summarize the accuracy of the regression model for the calibration period.  The performance of the model on data not used to fit the model is usually checked in some way by a process called validation.  Finally, tree-ring data from before the calibration period are substituted into the prediction equation to get a reconstruction of the predictand.  The reconstruction is a "prediction" in the sense that the regression model is applied to generate estimates of the predictand variable outside the period used to fit the data.  The uncertainty in the reconstruction is summarized by confidence intervals, which can be computed by various alternative ways.<p>
+
+		<b>Assignments</b><p>
+		<b>Read:</b>  Notes_11.pdf<p>
+		<b>Answer:</b>  Run script geosa11.m (Part 1) and answer questions listed in the file in a11.pdf<p>
+<b>What to Know</b><p>
+<ul>
+<li>The equation for the MLR model
+<li>Assumptions for the MLR model
+<li>Definitions of MLR statistics: coefficient of determination, sums-of-squares terms, overall-F for the regression equation, standard error of the estimate, adjusted R-squared, pool of potential predictors
+<li>The steps in an analysis of residuals
+<li>How to apply geosa11.m (part 1) to fit a MLR regression model to predict one variable from a set of several predictor variables
+
+
+</ul>
+<p>
+<a href="#ctop">Back to Top of Page</a>
+<br><br><br><br>
+		
+
+
+<li><a name="cLesson12"><b>Validating the regression model</b></a><p>
+
+Regression R-squared, even if adjusted for loss of degrees of freedom due to the number of predictors in the model, can give a misleading, overly optimistic view of accuracy of prediction when the model is applied outside the calibration period.  Application outside the calibration period is the rule rather than the exception in dendroclimatology. The calibration-period statistics are typically biased because the model is "tuned" for maximum agreement in the calibration period.   Sometimes too large a pool of potential predictors is used in automated procedures to select final predictors.  Another possible problem is that the calibration period itself may be anomalous in terms of the relationships between the variables:  modeled relationships may hold up for some periods of time but not for others.  It is advisable therefore to "validate" the regression model by testing the model on data not used to fit the model.  Several approaches to validation are available.  Among these are cross-validation and split-sample validation.  In cross-validation, a series of regression models is fit, each time deleting a different observation from the calibration set and using the model to predict the predictand for the deleted observation.  The merged series of predictions for deleted observations is then checked for accuracy against the observed data.  In split-sample calibration, the model is fit to some portion of the data (say, the second half), and accuracy is measured on the predictions for the other half of the data.  The calibration and validation periods are then exchanged and the process repeated.  In any regression problem it is also important to keep in mind that modeled relationships may not be valid for periods when the predictors are outside their ranges for the calibration period:  the multivariate distribution of the predictors for some observations outside the calibration period may have no analog in the calibration period.  The distinction of predictions as extrapolations versus interpolations is useful in flagging such occurrences. <p>
+
+		<b>Assignments</b><p>
+		<b>Read:</b>  Notes_12.pdf<p>
+		<b>Answer:</b>  Run script geosa11.m (Part 2) and answer questions listed in the file in a12.pdf<p>
+<b>What to Know</b><p>
+<ul>
+<li>Definitions: validation, cross-validation, split-sample validation, mean square error (MSE), root-mean-square error (RMSE); standard error of prediction, PRESS statistic, "hat" matrix, extrapolation vs interpolation
+<li>Advantages of cross-validation over alternative validation methods
+<li>How to apply geosa11.m (part 2) for cross-validated MLR modeling of the relationship between a predictand and predictors, including generation of a reconstruction and confidence bands
+
+</ul>
+<a href="#ctop">Back to Top of Page</a>
+<p>
+
+</ol>
+<a href="#ctop">Back to Top of Page</a>
+	
+<H3><a name="cdownload">Downloading Files</a> -- tsfiles.zip</H3>
+
+
+The Matlab class scripts and user-written functions are zipped in a file called "tsfiles.zip", which students should download from D2L. To get the files, first create an empty folder on your computer. This is where you will store all functions, scripts and data used in the course. Unzip the file there.  When you run matlab, be sure that directory is your current matlab working directory. I no longer put the current year's tsfiles.zip on the course web site, but have a version called <a href="tsfiles_Stale.zip">tsfiles_Stale.zip</a> that people can go to to get the functions, etc., from the previous offering of the course.  <P>
+
+<em>Powerpoint lecture outlines & miscellaneous files.</em>  Downloadable file <a href="other_Stale.zip">other_Stale.zip</a> has miscellaneous files used in lectures from the previous offering of the course. Included are Matlab demo scripts, sample data files, user-written functions used by demo scripts, and powerpoint presentations, as pdfs (lect1a.pdf, lect1b.pdf, etc.) used in on-campus lectures. Students taking the course this semester should not use other_Stale.zip, but instead get the file "other.zip" from D2L contents.  I update other.zip over the semester, and add the presentation for the current lecture within a couple of days after that lecture is given. File other.zip for this semester does not exist till after the first lecture, and then is augmented after each lecture. At the end of the semester I revise the online-available other_Stale.zip.<p>
+
+
+<P>
+<H3><a name="chardcode">Tailoring the Matlab Scripts</a> </H3>
+</P> 
+To run the Matlab scripts for the assignments, you must have your data, the class scripts, and the user-written Matlab functions called by the scripts in a single directory on your computer.  The name of this directory is unimportant. Under Windows, it might be something like "C:\geos585a\". The functions and scripts provided for the course should not require any tailoring, but some changes can be made for convenience. For example, scripts and functions will typically prompt you for the name of your input data file and present "Spring21" as the default.  That is because I've stored the sample data in Spring21.mat.  If you want to avoid having to type over "Spring21" with the name of your own data file each time you run the script, edit the matlab script with the Matlab editor/debugger to change one line.  In the editor, search for the string "Spring21" and replace it with the name of your .mat storage file (e.g., "Smith2021"), then be sure to re-save the edited script.  
+
+<p>
+<a href="#ctop">Back to Top of Page</a>
+
+	
+	<table cols=>
+		<tr>
+			<td><a href="index.html">Home</a></td>
+			<td><a href="vita.html">Vita</a></td>
+			<td><a href="geos585a.html">Course</a></td>
+			<td><a href="toolbox.html">Toolbox</a></td>
+			<td><a href="contact.html">Contact</a></td>
+		</tr>
+	</table><p></p>
+	
+
+<H3><a name="chandout">Notes and Assignments</a> </H3>
+Notes and assignments are available to those taking the course through D2L. I revise the notes and assignments during the semester, and upload files to D2L at least two weeks before the topic is covered in class. The zipped file "other.zip" contains powerpoints(converted to pdf) and miscellaneous demo files used in class lectures.  "other.zip" is built up cumulatively through the semester, and is updated after each class.  The powerpoints have feedback from students' submitted assignments, and may be helpful to the correspondence students, who do not have access to the twice-a-week lectures.   <br>
+<br>
+I am happy to share my notes, and anyone not taking the course is welcome to download them and modify them for their own purposes. No attribution or acknowledgement of source is requested. Enjoy! Click on the <a href="Geos585A_notes2019.zip">zip file</a> that contains the pdf's of notes for each lecture for the previous semester I taught the course. These are <strong>NOT</strong> the notes for the current semester. Notes for the current semester are available to registered students only, must be accessed through D2L, and are not finalized till the end of the semester.
+
+
+<br><br><br>
+<a href="#ctop">Back to Top of Page</a>
+
+	
+	<table cols=>
+		<tr>
+			<td><a href="index.html">Home</a></td>
+			<td><a href="vita.html">Vita</a></td>
+			<td><a href="geos585a.html">Course</a></td>
+			<td><a href="toolbox.html">Toolbox</a></td>
+			<td><a href="contact.html">Contact</a></td>
+		</tr>
+	</table><p></p>
+	
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>Tree-Ring Matlab Toolbox</title>
+	
+	<Link rel="stylesheet" type="text/css" href="master.css">
+</head>
+
+<body>
+	<a name="ttop"></a>
+	<h1>Tree-Ring Matlab Toolbox</h1>
+		
+	<ul>
+		<li><a href="#mdescribe">Description</a>
+		<li><a href="#mrequire">Requirements</a>
+		<li><a href="#mnotation">Notation</a>
+		<li><a href="#fcnlist">Function List</a>	
+		
+	</ul>
+	
+	<table cols=>
+		<tr>
+			<td><a href="index.html">Home</a></td>
+			<td><a href="vita.html">Vita</a></td>
+			<td><a href="geos585a.html">Course</a></td>
+			<td><a href="toolbox.html">Toolbox</a></td>
+			<td><a href="contact.html">Contact</a></td>
+		</tr>
+	</table>
+	
+	<a name="mdescribe"></a>
+	<h2>Description</h2><br>
+	
+Matlab is a commercial software package for numeric computation, graphics, visualization, and high-level programming.  Matlab is available from <a href="http://www.mathworks.com/">The MathWorks, Inc.</a> The basic Matlab package has many functions generally useful for tree-ring studies.  Matlab "toolboxes" with specialized functions can also purchased from <a href="http://www.mathworks.com/">The MathWorks, Inc.</a> Toolboxes are available for signal processing, mapping, image processing, neural networks, statistics, and many other topics.</a><P>
+
+The "Tree-Ring Toolbox" is not a commercially available Matlab toolbox, but is a collection of Matlab functions I have written to do various tasks in tree-ring analysis. For example, the function crn2vec2 reads an ITRDB-formatted ".crn" file and returns the site chronology, years, and sample size as matlab vectors. 
+<br>
+<a href="#ttop">Back to Top of Page</a>
+	
+	
+	<a name="mrequire"></a>
+	<h2>Requirements</h2><br>
+To use the Tree-Ring Toolbox, you must have Matlab installed on your computer or network.  I use the University of Arizona Matlab site license, which has the most recent Matlab release.  The functions may not work on older versions. Depending on which functions you intend to use, you may also need to have one or more "Matlab toolboxes" (e.g., statistics) installed.  The comment section of each function lists which toolboxes are required.  Some functions requre statistics, signal processing or spline toolboxes.<P>
+
+To use the Tree-Ring Toolbox, you must its functions in a directory on your Matlab path.  My functions usually call on other utility functions I wrote. The best method to be sure you don't call an "unknown" function is to download the whole set of Tree-Ring Toolbox functions. I have zipped these into a file <a href="http://www.ltrr.arizona.edu/~dmeko/outbox/Files_pooled.zip">File_pooled.zip</a>, which you should unzip into a directory on your Matlab path.  I recommend keeping those functions by themselves  in a dedicated folder. Put that folder first on your Matlab path, so that no other functions you might have by the same name, or not obsolete versions of the same function, are used. Alternatively, move your data to the dedicated folder and run programs with that folder as the current working directory.
+<br> <br>
+I distribute these function freely. I require no acknowledgement of the source. Go ahead and modify them as you wish.  I welcome any comments on the functions in the <a href="#fcnlist">function list</a>.  But due to time constraints, I cannot promise anything more than grudging cooperation in updating or correcting functions when I'm in the mood.     <P>
+<a href="#ttop">Back to Top of Page</a>
+	<br> <br>
+	
+	
+	<a name="mnotation"></a>
+	<h2>Notation</h2>
+<p>To find out what's in the Tree-Ring Matlab Toolbox, check out the <a href="#fcnlist">function list,</a> , which give a brief description of what the function does. I suggest you read the comment section at the beginning of any function before using the function. My opening comments are organized as follows:<br><ol>
+<li>function name with 1-line description
+<li>syntax of the function call
+<li>date of most recent revision
+<li>extended description of what the function does
+<li>Input requirements
+<li>Output
+<li>References
+<li>UW Functions Called (other functions I wrote) 
+<li>Matlab toolboxes required (e.g., signal processing)
+</ol>
+
+Among other things, the comment secti0ons defines the input and output arguments. I use a shorthand code for such data. The best way of describing this code is by way of example:<br>
+<PRE>
+(1x1)r  real number, scalar
+(3x2)r  matrix (3 x 2) of real numbers 
+(3x1)i  column vector (3 elements) of integers
+(1x8)s  character string of length 8
+(1x1)L  logical scalar
+
+</PRE>
+
+Matlab also has data types called "cells" and "structures", which are best found out about by reading the Matlab documentation. My code for cells uses braces.  For example, 
+the code below indicates a 1 x 3 "cell" variable containing a 2x2 integer matrix, a 1x5 character string and a 1x10 row vector of real numbers.   
+
+<PRE>
+{1x3}
+  (2 x 2)i
+  (1 x 5)s
+  (1 x 10)r  
+</PRE>
+<br>  
+Among the files included is seascorr, which has been published in Computers & Geosciences. A pdf of the paper and a zip of sample data are included for seascorr. Sample data are also included for function skelcrn. 
+<br>
+<a href="#ttop">Back to Top of Page</a>
+ 
+
+<a name="fcnlist"></a>
+<h2>List of Functions</h2>
+<ul>
+
+
+	
+	
+	
+<li>Tree-ring and climate-data analysis
+	<ul>
+	<li><strong>climgram</strong> -- climogram of monthly mean precipitation and temperature
+		<li><strong>grplot</strong> -- grouped plots of ring width series, one below the other
+		<li><strong>lockdown</strong> -- graphical & statistic check of cross-dating of cores in rlw file or of ring-width series with site chronology
+		<li><strong>seascorr</strong> -- identify seasonal climatic signal in annual tree-ring series
+		<li><strong>skelcrn</strong> -- skeleton plot from chronology (e.g., crn file) or ring-width series
+				
+	</ul>
+
+
+<li>IO, formatting and plotting of tree-ring data
+	<ul>
+		<li><strong>crn2vec2</strong> -- crn file to  column vectors of index, sample size, and year
+		<li><strong>rwlids1</strong> -- check core ids in an rwl file and build a renaming template
+		<li><strong>rwlids2</strong> -- substitue ids in an rwl file
+		<li><strong>rwlids3</strong> -- high-grade an overloaded mat file of ring widths; first of two function (second is rwlids4) used to high-grade a collection
+  of measured ring widths to emphasize long, highly intercorrelated series
+  and evenness of sample coverage. 
+		<li><strong>rwlids4</strong> -- trim an rwl file by deleting indicated series.
+		<li><strong>rwl2tsm</strong> --convert .rwl file to time series matrix
+		<li><strong>rwlinp</strong> --- load rwl series as indexed vector into Matlab
+		<li><strong>tsplotss1</strong> --time series plots of sample size from two sets of ring widths (for comparison of two chronologies)
+		<li><strong>tsplotss2</strong> --- Time series plot of 2 alternative site chronologies from matrices of core indices (for comparison of two chronologies)
+
+
+	</ul>
+
+	
+<li>IO and formatting of climate data
+	<ul>
+		<li><strong>c132tss</strong> --thirteen-column monthly climate matrix to time-series structure
+	</ul>
+	
+
+		
+<li>Time series analysis
+	<ul>
+		<li><strong>acf</strong> -- autocorrelation function and confidence limits
+		<li><strong>akaike</strong> --akaike information criterion for fitting AR models
+		<li><strong>arspectrum</strong> --  spectrum of an AR(1) or AR(2) process
+		<li><strong>corrdiff</strong> --  test difference of two non-zero sample correlation coefficients
+		<li><strong>corrone</strong> -- product-moment correlation of one variable with several others (vector with columns of a matrix)
+		<li><strong>mafilt1</strong> -- evenly-weighted moving average of an annual time series
+		<li><strong>mannken1</strong> -- Mann-Kendall nonparametric test for trend
+		<li><strong>pdgmraw</strong> -- raw periodogram of a time series
+		<li><strong>pdgmsim</strong> -- exact simulation of Gaussian time series from its periodogram
+		<li><strong>quenouille</strong> --confidence interval for cross-correlation of autocorrelated series		
+		<li><strong>specbt1</strong> --  spectrum of a single time series  by Blackman Tukey method
+		<li><strong>sseff</strong> --  effective (adjusted for autocorrelation) sample size of a time series
+		<li><strong>splinep</strong> --  spline smoothing parameter for a desired amplitude of frequency response at a specified wavelength (paramter in as define in Matlab curve fitting toolbox function csaps)
+		<li><strong>whit1</strong> -- fit an AR model to time series and prewhiten series with the model
+	</ul>
+	
+
+	
+<li>Utility: low level functions called by other functions
+	<ul>
+test  that two independent correlations are estimates of the same population correlation
+		<li><strong>eightplt</strong> -- eight plots on a page (used by grplot)
+		<li><strong>figsize</strong> -- figure-window pixel positions from specified fractional screen-width and screen-height
+		<li><strong>filter1</strong> -- low-pass filter a time series using specified weights
+		<li><strong>firstlst</strong> -- find first and last years of valid data in columns of a time series matrix
+		<li><strong>intnan</strong> --check for imbedded NaN in a time series
+		<li><strong>nonan1</strong> --longest continuous block of a time series matrix without missing data
+		<li><strong>menucell</strong> --menu for selecting elements of a cell array
+		<li><strong>OStell</strong> --find out the operating system of the computer
+		<li><strong>ranktie</strong> --get ranks for values in a time series that might contain ties
+		<li><strong>rwchng</strong> --scaled values or first-difference of a time series (used by lockdown)
+		<li><strong>rwread3</strong> --reads a single .rw file (used by skelcrn)
+		<li><strong>shiftcor</strong> --UNFINISHED function to be called by lockdown for the yet-to-be-implemented mode of searching for the best dating spot for a floating set of ring widths
+		<li><strong>sov2tsm</strong> --convert strung-out-vector to time series matrix (used by rwlinp); this version does not handle names cell
+		<li><strong>sov2tsm3</strong> --convert strung-out-vector to time series matrix (used by rwlinp); this version handles names cell
+		<li><strong>suplabel</strong> --places text as a title, xlabel, or ylabel on a group of subplots
+		<li><strong>textcorn</strong> -- Add annotation text to any corner of a figure
+		<li><strong>trailnan</strong> -- remove any trailing NaN from a time series
+		<li><strong>trimnan</strong> -- remove any leading or trailing NaN from a time series
+		<li><strong>wtsbinom</strong> -- weights for binomial filter with specified frequency response
+		<li><strong>wtsgaus</strong> -- weights for Gaussian filter with specified frequency response
+
+find first and last years of valid data in a time series matrix
+</ul>
+
+<div align="center"></div>
+<a href="#ttop">Back to Top of Page</a>
+ 	<table cols=>
+		<tr>
+			<td><a href="index.html">Home</a></td>
+			<td><a href="vita.html">Vita</a></td>
+			<td><a href="geos585a.html">Course</a></td>
+			<td><a href="toolbox.html">Toolbox</a></td>
+			<td><a href="contact.html">Contact</a></td>
+		</tr>
+	</table>
+	<br>
+	
+</body>
+</html>
+
